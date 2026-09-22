@@ -1604,3 +1604,286 @@ figure {
     }
 
 }
+
+
+/* ============================================================
+   SCROLL-DRIVEN IMAGE GALLERY
+   ============================================================ */
+
+.image-scroll-section {
+    position: relative;
+
+    height: 500vh;
+
+    width: 100%;
+}
+
+
+.image-scroll-sticky {
+    position: sticky;
+    top: 0;
+
+    height: 100vh;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+}
+
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+.image-scroll-header {
+    position: absolute;
+
+    top: 32px;
+    left: 5vw;
+    right: 5vw;
+
+    display: flex;
+    justify-content: space-between;
+
+    font-family: "DM Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+
+    color: #77766f;
+
+    z-index: 5;
+}
+
+
+/* ============================================================
+   CONTENT
+   ============================================================ */
+
+.image-scroll-content {
+    width: 70vw;
+    max-width: 1200px;
+}
+
+
+/* ============================================================
+   IMAGE STAGE
+   ============================================================ */
+
+.image-scroll-stage {
+    position: relative;
+
+    width: 100%;
+
+    aspect-ratio: 16 / 9;
+}
+
+
+/* ============================================================
+   IMAGES
+   ============================================================ */
+
+.image-scroll-item {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    margin: 0;
+
+    opacity: 0;
+    transform: scale(0.97);
+
+    transition:
+        opacity 0.7s cubic-bezier(.2,.65,.2,1),
+        transform 0.9s cubic-bezier(.2,.65,.2,1);
+
+    pointer-events: none;
+}
+
+
+.image-scroll-item.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+
+.image-scroll-item img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+/* ============================================================
+   CAPTION
+   ============================================================ */
+
+.image-scroll-caption {
+    display: flex;
+    align-items: baseline;
+
+    gap: 18px;
+
+    margin-top: 14px;
+
+    min-height: 18px;
+
+    font-family: "DM Mono", monospace;
+    font-size: 10px;
+    line-height: 1.4;
+
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+
+    color: #77766f;
+}
+
+
+.caption-number {
+    flex: 0 0 auto;
+}
+
+
+.caption-text {
+    color: #151515;
+}
+
+
+/* ============================================================
+   COUNTER
+   ============================================================ */
+
+.image-scroll-counter {
+    position: absolute;
+
+    bottom: 32px;
+    left: 5vw;
+
+    font-family: "DM Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+
+    color: #77766f;
+}
+
+
+.current-image {
+    color: #151515;
+}
+
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 700px) {
+
+    .image-scroll-section {
+        height: 500vh;
+    }
+
+    .image-scroll-content {
+        width: 90vw;
+    }
+
+    .image-scroll-header {
+        top: 24px;
+        left: 5vw;
+        right: 5vw;
+    }
+
+    .image-scroll-caption {
+        margin-top: 12px;
+
+        gap: 12px;
+
+        font-size: 9px;
+    }
+
+    .image-scroll-counter {
+        bottom: 24px;
+        left: 5vw;
+    }
+
+}
+
+
+
+
+
+<!-- ====================================================
+     SCROLL-DRIVEN IMAGE GALLERY
+     ==================================================== -->
+
+<section class="image-scroll-section">
+
+    <div class="image-scroll-sticky">
+
+        <div class="image-scroll-header">
+            <span>02</span>
+            <span>ARCHIVE</span>
+        </div>
+
+        <div class="image-scroll-stage">
+
+            <figure class="image-scroll-item active">
+                <img
+                    src="images/erika-gallery01.jpg"
+                    alt="Bard College"
+                    loading="lazy"
+                >
+            </figure>
+
+            <figure class="image-scroll-item">
+                <img
+                    src="images/erika-gallery02.jpg"
+                    alt="Bard College"
+                    loading="lazy"
+                >
+            </figure>
+
+            <figure class="image-scroll-item">
+                <img
+                    src="images/erika-gallery03.jpg"
+                    alt="Bard College"
+                    loading="lazy"
+                >
+            </figure>
+
+            <figure class="image-scroll-item">
+                <img
+                    src="images/erika-gallery04.jpg"
+                    alt="Bard College"
+                    loading="lazy"
+                >
+            </figure>
+
+            <figure class="image-scroll-item">
+                <img
+                    src="images/erika-gallery05.jpg"
+                    alt="Bard College"
+                    loading="lazy"
+                >
+            </figure>
+
+        </div>
+
+        <div class="image-scroll-counter">
+            <span class="current-image">01</span>
+            <span>/ 05</span>
+        </div>
+
+    </div>
+
+</section>
+

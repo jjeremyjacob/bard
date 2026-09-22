@@ -767,6 +767,125 @@ videoFrames.forEach((iframe) => {
 });
 
 
+
+
+/* ============================================================
+   SCROLL-DRIVEN IMAGE GALLERY
+   ============================================================ */
+
+const imageGallery =
+    document.querySelector(".image-scroll-section");
+
+if (imageGallery) {
+
+    const galleryImages =
+        imageGallery.querySelectorAll(".image-scroll-item");
+
+    const currentImage =
+        imageGallery.querySelector(".current-image");
+
+    const captionText =
+        imageGallery.querySelector(".caption-text");
+
+
+    const captions = [
+
+        "BLITHEWOOD MANOR ON THE ANNANDALE CAMPUS IS HOME TO THE ECONOMICS PROGRAM AT BARD",
+
+        "THE WASHINGTON MOMUMENT IN WASHINGTON, D.C.",
+
+        "THE LINCOLN MEMORIAL IN WASHINGTON, D.C.",
+
+        "VIEW OF THE CAPITOL BUILDING FROM THE LINCOLN MEMORIAL",
+
+        "Election@Bard Students Registering Bard Students to Vote"
+
+    ];
+
+
+    function updateImageGallery() {
+
+        const rect =
+            imageGallery.getBoundingClientRect();
+
+        const sectionHeight =
+            imageGallery.offsetHeight;
+
+        const viewportHeight =
+            window.innerHeight;
+
+
+        const scrollDistance =
+            sectionHeight - viewportHeight;
+
+
+        const progress =
+            Math.max(
+                0,
+                Math.min(
+                    1,
+                    -rect.top / scrollDistance
+                )
+            );
+
+
+        const imageIndex =
+            Math.min(
+                galleryImages.length - 1,
+                Math.floor(
+                    progress * galleryImages.length
+                )
+            );
+
+
+        galleryImages.forEach((image, index) => {
+
+            image.classList.toggle(
+                "active",
+                index === imageIndex
+            );
+
+        });
+
+
+        if (currentImage) {
+
+            currentImage.textContent =
+                String(imageIndex + 1).padStart(2, "0");
+
+        }
+
+
+        if (captionText) {
+
+            captionText.textContent =
+                captions[imageIndex];
+
+        }
+
+    }
+
+
+    window.addEventListener(
+        "scroll",
+        updateImageGallery,
+        { passive: true }
+    );
+
+
+    window.addEventListener(
+        "resize",
+        updateImageGallery
+    );
+
+
+    updateImageGallery();
+
+}
+
+
+
+
 /* ============================================================
    PAGE LOAD
    ============================================================ */
