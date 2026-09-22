@@ -1532,3 +1532,32 @@ figure {
     }
 
 }
+
+/* ============================================================
+   VIDEO CAPTION
+   ============================================================ */
+
+.video-caption {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+
+    padding: 12px 0 0;
+
+    font-family: "DM Mono", monospace;
+    font-size: 10px;
+    line-height: 1.2;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+
+    color: #171714;
+}
+
+@media (max-width: 600px) {
+
+    .video-caption {
+        padding-top: 10px;
+        font-size: 9px;
+    }
+
+}
