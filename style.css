@@ -574,7 +574,7 @@ figure {
 .landscape-feature .editorial-image img {
     display: block;
     width: 100%;
-    aspect-ratio: 2.15 / 1;
+    aspect-ratio: 16 / 9;
     object-fit: cover;
 }
 
