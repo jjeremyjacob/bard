@@ -1,0 +1,1534 @@
+/* ============================================================
+   BARD — A DIFFERENT KIND OF BEGINNING
+   ============================================================ */
+
+
+/* ============================================================
+   RESET
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #f1efe8;
+    color: #171714;
+    font-family: "Manrope", sans-serif;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+}
+
+img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+figure {
+    margin: 0;
+}
+
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+.site-header {
+    position: fixed;
+    z-index: 1000;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    padding: 20px 24px;
+
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: start;
+
+    color: #f5f2e9;
+
+    mix-blend-mode: difference;
+
+    pointer-events: none;
+}
+
+.site-header a,
+.site-header nav {
+    pointer-events: auto;
+}
+
+.site-mark {
+    font-family: "Manrope", sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .08em;
+}
+
+.site-nav {
+    display: flex;
+    gap: 28px;
+
+    font-family: "DM Mono", monospace;
+    font-size: 10px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.site-nav a {
+    transition: opacity .3s ease;
+}
+
+.site-nav a:hover {
+    opacity: .5;
+}
+
+.header-meta {
+    justify-self: end;
+
+    text-align: right;
+
+    font-family: "DM Mono", monospace;
+    font-size: 9px;
+    line-height: 1.3;
+    letter-spacing: .08em;
+}
+
+
+/* ============================================================
+   HERO — VIMEO BACKGROUND
+   ============================================================ */
+
+.hero {
+    position: relative;
+
+    width: 100%;
+    height: 100svh;
+    min-height: 680px;
+
+    overflow: hidden;
+
+    background: #111;
+    color: #f5f2e9;
+
+    cursor: default;
+}
+
+
+/* ============================================================
+   HERO VIDEO
+   ============================================================ */
+
+.hero-video {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    z-index: 1;
+
+    pointer-events: none;
+}
+
+.hero-video iframe {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    width: 100vw;
+    height: 56.25vw;
+
+    min-width: 177.78vh;
+    min-height: 100vh;
+
+    transform: translate(-50%, -50%);
+
+    border: 0;
+
+    pointer-events: none;
+}
+
+
+/* ============================================================
+   HERO OVERLAY
+   ============================================================ */
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+
+    z-index: 2;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, .35),
+            transparent 35%,
+            rgba(0, 0, 0, .48)
+        );
+
+    pointer-events: none;
+}
+
+
+/* ============================================================
+   HERO CONTENT
+   ============================================================ */
+
+.hero-content {
+    position: absolute;
+    inset: 0;
+
+    z-index: 3;
+
+    padding: 125px 5vw 42px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    pointer-events: none;
+}
+
+.hero-content a,
+.hero-content button {
+    pointer-events: auto;
+}
+
+
+/* ============================================================
+   HERO TYPOGRAPHY
+   ============================================================ */
+
+.eyebrow {
+    font-family: "DM Mono", monospace;
+    font-size: 10px;
+    letter-spacing: .12em;
+}
+
+.hero h1 {
+    max-width: 1050px;
+
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(76px, 11vw, 170px);
+    font-weight: 400;
+    line-height: .78;
+    letter-spacing: -.045em;
+}
+
+.hero h1 em {
+    font-weight: 400;
+}
+
+.hero-bottom {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: end;
+
+    gap: 40px;
+}
+
+.hero-intro {
+    max-width: 480px;
+
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(25px, 3vw, 43px);
+    line-height: .98;
+}
+
+.scroll-note {
+    font-family: "DM Mono", monospace;
+    font-size: 9px;
+    letter-spacing: .1em;
+    white-space: nowrap;
+}
+
+
+/* ============================================================
+   FULL WIDTH VIDEO
+   ============================================================ */
+
+.video-section {
+    position: relative;
+
+    width: 100%;
+
+    background: #0b0b0a;
+    color: #f1efe8;
+
+    overflow: hidden;
+}
+
+.video-frame {
+    position: relative;
+
+    width: 100%;
+    aspect-ratio: 16 / 9;
+
+    overflow: hidden;
+}
+
+.video-frame iframe {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    border: 0;
+}
+
+.video-opening .video-frame {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+}
+
+.video-label {
+    position: absolute;
+
+    z-index: 5;
+
+    top: 18px;
+    left: 22px;
+
+    font-family: "DM Mono", monospace;
+    font-size: 9px;
+    letter-spacing: .08em;
+
+    mix-blend-mode: difference;
+}
+
+
+/* ============================================================
+   STORY
+   ============================================================ */
+
+.story {
+    width: 100%;
+}
+
+.story-intro,
+.chapter-break {
+    padding: 170px 5vw 120px;
+}
+
+.story-intro {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 40px;
+}
+
+.story-number,
+.chapter-break > span,
+.ending-number {
+    font-family: "DM Mono", monospace;
+    font-size: 10px;
+    letter-spacing: .1em;
+}
+
+.story-intro h2,
+.chapter-break h2 {
+    max-width: 1100px;
+
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 400;
+    font-size: clamp(70px, 10vw, 155px);
+    line-height: .82;
+    letter-spacing: -.045em;
+}
+
+.chapter-break {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 40px;
+
+    padding-top: 230px;
+    padding-bottom: 150px;
+}
+
+
+/* ============================================================
+   TEXT
+   ============================================================ */
+
+.text-block {
+    width: 100%;
+
+    padding: 60px 5vw 130px;
+
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: 2vw;
+}
+
+.text-block p {
+    grid-column: 4 / 11;
+
+    margin-bottom: 34px;
+
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(27px, 3.2vw, 50px);
+    line-height: 1.08;
+    letter-spacing: -.015em;
+}
+
+.text-block p:last-child {
+    margin-bottom: 0;
+}
+
+.text-block .dropcap::first-letter {
+    float: left;
+
+    font-size: 2.8em;
+    line-height: .72;
+
+    margin-right: .06em;
+}
+
+.text-block .emphasis {
+    font-size: clamp(38px, 5vw, 76px);
+    line-height: .95;
+}
+
+
+/* ============================================================
+   STATEMENTS
+   ============================================================ */
+
+.statement {
+    padding: 130px 5vw 170px;
+
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(55px, 8vw, 130px);
+    line-height: .83;
+    letter-spacing: -.045em;
+}
+
+.statement p {
+    max-width: 1200px;
+}
+
+.statement em {
+    display: block;
+
+    max-width: 1200px;
+
+    margin-left: 18vw;
+
+    font-weight: 400;
+}
+
+.statement-large {
+    padding-top: 200px;
+    padding-bottom: 200px;
+}
+
+.statement-large p + p {
+    margin-top: 35px;
+}
+
+
+/* ============================================================
+   IMAGES
+   ============================================================ */
+
+.editorial-image {
+    position: relative;
+
+    width: 100%;
+
+    overflow: hidden;
+}
+
+.editorial-image img {
+    width: 100%;
+    height: auto;
+
+    transition:
+        transform 1.2s cubic-bezier(.2, .7, .2, 1);
+}
+
+.editorial-image:hover img {
+    transform: scale(1.015);
+}
+
+.editorial-image figcaption {
+    padding: 12px 5vw 0;
+
+    font-family: "DM Mono", monospace;
+    font-size: 9px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+}
+
+.image-wide {
+    padding: 0 5vw;
+}
+
+.image-wide img {
+    aspect-ratio: 1.8 / 1;
+    object-fit: cover;
+}
+
+.image-tall {
+    width: 57vw;
+
+    margin-left: 22vw;
+}
+
+.image-tall img {
+    aspect-ratio: .76 / 1;
+    object-fit: cover;
+}
+
+.image-tall-large {
+    width: 62vw;
+
+    margin-left: 19vw;
+}
+
+.image-tall-large img {
+    aspect-ratio: .8 / 1;
+    object-fit: cover;
+}
+
+.image-full img {
+    aspect-ratio: 1.75 / 1;
+    object-fit: cover;
+}
+
+.image-landscape img {
+    aspect-ratio: 2.15 / 1;
+}
+
+
+/* ============================================================
+   IMAGE PAIR
+   ============================================================ */
+
+.image-pair {
+    width: 100%;
+
+    padding: 60px 5vw 140px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3vw;
+}
+
+.image-pair figure:first-child {
+    padding-top: 14vw;
+}
+
+.image-pair img {
+    aspect-ratio: .82 / 1;
+    object-fit: cover;
+}
+
+.image-pair figcaption {
+    padding-top: 12px;
+
+    font-family: "DM Mono", monospace;
+    font-size: 9px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+}
+
+
+ /* ============================================================
+    LANDSCAPE FEATURE — IMAGE + OVERLAID TYPE
+    ============================================================ */
+
+.landscape-feature {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: #171714;
+}
+
+.landscape-feature .editorial-image {
+    width: 100%;
+}
+
+.landscape-feature .editorial-image img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 2.15 / 1;
+    object-fit: cover;
+}
+
+.landscape-type {
+    position: absolute;
+    inset: 0;
+
+    z-index: 5;
+
+    padding: 5vw;
+
+    display: flex;
+    align-items: center;
+
+    pointer-events: none;
+
+    color: #f1efe8;
+}
+
+.landscape-type p {
+    max-width: 1350px;
+
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(65px, 10vw, 160px);
+    line-height: .82;
+    letter-spacing: -.05em;
+}
+
+.landscape-type em {
+    display: block;
+    margin-left: 18vw;
+    font-weight: 400;
+}
+
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 600px) {
+
+    .landscape-feature .editorial-image img {
+        aspect-ratio: 1.1 / 1;
+    }
+
+    .landscape-type {
+        padding: 18px;
+    }
+
+    .landscape-type p {
+        font-size: 18vw;
+    }
+
+    .landscape-type em {
+        margin-left: 12vw;
+    }
+
+}
+
+/* ============================================================
+   ENDING
+   ============================================================ */
+
+.ending {
+    padding: 230px 5vw 180px;
+
+    background: #171714;
+    color: #f1efe8;
+}
+
+.ending h2 {
+    margin-top: 80px;
+
+    max-width: 1200px;
+
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(75px, 11vw, 175px);
+    line-height: .78;
+    font-weight: 400;
+    letter-spacing: -.05em;
+}
+
+.ending-text {
+    width: 100%;
+
+    margin-top: 180px;
+
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+}
+
+.ending-text p {
+    grid-column: 4 / 11;
+
+    margin-bottom: 60px;
+
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(29px, 3.4vw, 52px);
+    line-height: 1.05;
+}
+
+.ending-text .final-line {
+    font-size: clamp(42px, 5vw, 75px);
+    line-height: .92;
+}
+
+.ending-text .final-line-last {
+    margin-left: 12vw;
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.site-footer {
+    padding: 20px 24px 24px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    font-family: "DM Mono", monospace;
+    font-size: 9px;
+    line-height: 1.4;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+}
+
+.site-footer div:nth-child(2) {
+    text-align: center;
+}
+
+.site-footer div:last-child {
+    text-align: right;
+}
+
+
+/* ============================================================
+   REVEAL ANIMATION
+   ============================================================ */
+
+.reveal {
+    opacity: 0;
+    transform: translateY(35px);
+
+    transition:
+        opacity 1s ease,
+        transform 1s cubic-bezier(.2, .7, .2, 1);
+}
+
+.reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* ============================================================
+   TABLET
+   ============================================================ */
+
+@media (max-width: 900px) {
+
+    .site-header {
+        padding: 17px 18px;
+        grid-template-columns: 1fr auto;
+    }
+
+    .header-meta {
+        display: none;
+    }
+
+    .site-nav {
+        gap: 18px;
+    }
+
+    .hero-content {
+        padding: 110px 5vw 30px;
+    }
+
+    .hero h1 {
+        font-size: clamp(70px, 14vw, 125px);
+    }
+
+    .story-intro,
+    .chapter-break {
+        grid-template-columns: 1fr 4fr;
+    }
+
+    .text-block p {
+        grid-column: 3 / 12;
+    }
+
+    .ending-text p {
+        grid-column: 3 / 12;
+    }
+
+    .image-tall {
+        width: 65vw;
+        margin-left: 17vw;
+    }
+
+    .image-tall-large {
+        width: 70vw;
+        margin-left: 15vw;
+    }
+
+}
+
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 600px) {
+
+    .site-header {
+        padding: 15px;
+    }
+
+    .site-mark {
+        font-size: 11px;
+    }
+
+    .site-nav {
+        font-size: 8px;
+        gap: 14px;
+    }
+
+
+    /* ========================================================
+       HERO
+       ======================================================== */
+
+    .hero {
+        min-height: 650px;
+    }
+
+    .hero-content {
+        padding: 95px 18px 25px;
+    }
+
+    .hero h1 {
+        font-size: 19vw;
+        line-height: .78;
+    }
+
+    .hero-bottom {
+        display: block;
+    }
+
+    .hero-intro {
+        max-width: 310px;
+
+        margin-bottom: 35px;
+
+        font-size: 27px;
+    }
+
+    .scroll-note {
+        font-size: 8px;
+    }
+
+
+    /* ========================================================
+       VIDEO
+       ======================================================== */
+
+    .video-frame {
+        aspect-ratio: 1 / .72;
+    }
+
+    .video-opening .video-frame {
+        aspect-ratio: 4 / 3;
+    }
+
+
+    /* ========================================================
+       STORY
+       ======================================================== */
+
+    .story-intro,
+    .chapter-break {
+        display: block;
+
+        padding: 120px 18px 75px;
+    }
+
+    .story-number,
+    .chapter-break > span {
+        display: block;
+
+        margin-bottom: 40px;
+    }
+
+    .story-intro h2,
+    .chapter-break h2 {
+        font-size: 19vw;
+        line-height: .8;
+    }
+
+
+    /* ========================================================
+       TEXT
+       ======================================================== */
+
+    .text-block {
+        display: block;
+
+        padding: 25px 18px 90px;
+    }
+
+    .text-block p {
+        margin-bottom: 28px;
+
+        font-size: 29px;
+        line-height: 1.03;
+    }
+
+    .text-block .emphasis {
+        font-size: 39px;
+    }
+
+
+    /* ========================================================
+       STATEMENTS
+       ======================================================== */
+
+    .statement {
+        padding: 100px 18px 120px;
+
+        font-size: 18vw;
+    }
+
+    .statement em {
+        margin-left: 15vw;
+        margin-top: 20px;
+    }
+
+    .statement-large {
+        padding-top: 120px;
+        padding-bottom: 130px;
+    }
+
+
+    /* ========================================================
+       IMAGES
+       ======================================================== */
+
+    .image-wide {
+        padding: 0 18px;
+    }
+
+    .image-wide img {
+        aspect-ratio: 1.15 / 1;
+    }
+
+    .image-tall,
+    .image-tall-large {
+        width: 78vw;
+        margin-left: 11vw;
+    }
+
+    .image-full img {
+        aspect-ratio: .9 / 1;
+    }
+
+    .image-landscape img {
+        aspect-ratio: 1.1 / 1;
+    }
+
+    .editorial-image figcaption {
+        padding: 10px 18px 0;
+    }
+
+
+    /* ========================================================
+       IMAGE PAIR
+       ======================================================== */
+
+    .image-pair {
+        display: block;
+
+        padding: 30px 18px 100px;
+    }
+
+    .image-pair figure:first-child {
+        padding-top: 0;
+        margin-bottom: 60px;
+    }
+
+    .image-pair img {
+        aspect-ratio: .82 / 1;
+    }
+
+
+    /* ========================================================
+       FULL BLEED TYPE
+       ======================================================== */
+
+    .full-bleed-type {
+        min-height: 70vh;
+
+        padding: 70px 18px;
+    }
+
+    .full-bleed-type p {
+        font-size: 18vw;
+    }
+
+    .full-bleed-type em {
+        margin-left: 12vw;
+    }
+
+
+    /* ========================================================
+       ENDING
+       ======================================================== */
+
+    .ending {
+        padding: 130px 18px 100px;
+    }
+
+    .ending h2 {
+        margin-top: 50px;
+
+        font-size: 19vw;
+    }
+
+    .ending-text {
+        display: block;
+
+        margin-top: 100px;
+    }
+
+    .ending-text p {
+        margin-bottom: 40px;
+
+        font-size: 30px;
+    }
+
+    .ending-text .final-line {
+        font-size: 42px;
+    }
+
+    .ending-text .final-line-last {
+        margin-left: 10vw;
+    }
+
+
+    /* ========================================================
+       FOOTER
+       ======================================================== */
+
+    .site-footer {
+        padding: 18px;
+
+        grid-template-columns: 1fr 1fr;
+
+        row-gap: 15px;
+    }
+
+    .site-footer div:nth-child(2) {
+        text-align: right;
+    }
+
+    .site-footer div:last-child {
+        grid-column: 1 / -1;
+
+        text-align: left;
+    }
+
+}
+
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+
+}
+
+
+/* ============================================================
+   INSET VIDEO
+   ============================================================ */
+
+.inset-video-section {
+    position: relative;
+
+    width: 100%;
+
+    padding: 120px 5vw 100px;
+
+    background: #f1efe8;
+    color: #171714;
+}
+
+
+/* ============================================================
+   INSET VIDEO — HEADING
+   ============================================================ */
+
+.inset-video-heading {
+    width: 100%;
+    max-width: 1400px;
+
+    margin: 0 auto 48px;
+
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+
+    gap: 40px;
+}
+
+.inset-video-heading h2 {
+    font-family: "DM Mono", monospace;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.inset-video-heading p {
+    max-width: 700px;
+
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(28px, 3.2vw, 52px);
+    font-style: italic;
+    line-height: 1.02;
+}
+
+
+/* ============================================================
+   INSET VIDEO — CONTAINER
+   ============================================================ */
+
+.inset-video {
+    position: relative;
+
+    width: 72vw;
+    max-width: 1100px;
+
+    margin: 0 auto;
+}
+
+.inset-video-frame {
+    position: relative;
+
+    width: 100%;
+    aspect-ratio: 16 / 9;
+
+    overflow: hidden;
+
+    background: #0b0b0a;
+
+    cursor: pointer;
+}
+
+.inset-video-frame iframe {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    border: 0;
+
+    /*
+       The iframe doesn't receive the click.
+       The parent .inset-video-frame does.
+    */
+    pointer-events: none;
+}
+
+
+/* ============================================================
+   INSET VIDEO — EDITORIAL CONTROLS
+   ============================================================ */
+
+.inset-video-controls {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 64px;
+
+    padding: 0 22px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 22px;
+
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, .55),
+        rgba(0, 0, 0, 0)
+    );
+
+    color: #f1efe8;
+
+    z-index: 10;
+
+    opacity: 0;
+
+    transition: opacity .4s ease;
+}
+
+.inset-video:hover .inset-video-controls,
+.inset-video:not(.is-playing) .inset-video-controls {
+    opacity: 1;
+}
+
+
+/* ============================================================
+   INSET VIDEO — PLAY / PAUSE
+   ============================================================ */
+
+.inset-video-control {
+    flex: 0 0 auto;
+
+    width: auto;
+    height: auto;
+
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 0;
+    background: none;
+
+    color: #f1efe8;
+
+    cursor: pointer;
+
+    font-family: "DM Mono", monospace;
+    font-size: 9px;
+    line-height: 1;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+
+    transition: opacity .25s ease;
+}
+
+.inset-video-control:hover {
+    opacity: .55;
+}
+
+
+/* ============================================================
+   PLAY ICON
+   ============================================================ */
+
+.play-icon {
+    position: relative;
+
+    width: 0;
+    height: 0;
+
+    margin-right: 7px;
+
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    border-left: 6px solid currentColor;
+}
+
+
+/* ============================================================
+   PAUSE ICON
+   ============================================================ */
+
+.inset-video.is-playing .play-icon {
+    width: 7px;
+    height: 9px;
+
+    margin-right: 7px;
+
+    border: 0;
+
+    border-left: 2px solid currentColor;
+    border-right: 2px solid currentColor;
+}
+
+
+/* ============================================================
+   AUDIO CONTROL
+   ============================================================ */
+
+.inset-video-audio {
+    flex: 0 0 auto;
+
+    width: auto;
+    height: auto;
+
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 0;
+    background: none;
+
+    color: #f1efe8;
+
+    cursor: pointer;
+
+    font-family: "DM Mono", monospace;
+    font-size: 9px;
+    line-height: 1;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+
+    transition: opacity .25s ease;
+}
+
+.inset-video-audio:hover {
+    opacity: .55;
+}
+
+
+/* ============================================================
+   AUDIO LABELS
+   ============================================================ */
+
+.audio-icon {
+    position: relative;
+
+    width: auto;
+    height: auto;
+
+    display: block;
+}
+
+.audio-muted::after {
+    content: "SOUND OFF";
+}
+
+.audio-on::after {
+    content: "SOUND ON";
+}
+
+.audio-muted,
+.audio-on {
+    opacity: 0;
+}
+
+.audio-muted {
+    opacity: 1;
+}
+
+.inset-video-audio.is-unmuted .audio-muted {
+    opacity: 0;
+}
+
+.inset-video-audio.is-unmuted .audio-on {
+    opacity: 1;
+}
+
+
+/*
+   Hide the old speaker construction completely.
+*/
+
+.speaker,
+.audio-x,
+.audio-wave {
+    display: none;
+}
+
+
+/* ============================================================
+   INSET VIDEO — PROGRESS
+   ============================================================ */
+
+.inset-video-progress {
+    position: relative;
+
+    flex: 1;
+
+    height: 20px;
+
+    display: flex;
+    align-items: center;
+
+    cursor: pointer;
+
+    touch-action: none;
+}
+
+.inset-video-progress-track {
+    position: relative;
+
+    width: 100%;
+    height: 1px;
+
+    background: rgba(241, 239, 232, .4);
+}
+
+.inset-video-progress-fill {
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 0;
+    height: 1px;
+
+    background: #f1efe8;
+
+    transition: width .08s linear;
+}
+
+
+/* ============================================================
+   INSET VIDEO — PROGRESS HANDLE
+   ============================================================ */
+
+.inset-video-progress::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 50%;
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #f1efe8;
+
+    transform:
+        translate(
+            calc(var(--progress, 0) * 1%),
+            -50%
+        );
+
+    opacity: 0;
+
+    transition: opacity .2s ease;
+}
+
+.inset-video-progress:hover::before {
+    opacity: 1;
+}
+
+
+/* ============================================================
+   INSET VIDEO — CAPTION
+   ============================================================ */
+
+.inset-video-caption {
+    width: 72vw;
+    max-width: 1100px;
+
+    margin: 18px auto 0;
+
+    display: flex;
+    justify-content: space-between;
+
+    gap: 30px;
+
+    font-family: "DM Mono", monospace;
+    font-size: 10px;
+    line-height: 1.4;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+}
+
+.inset-video-caption span:last-child {
+    text-align: right;
+}
+
+
+/* ============================================================
+   INSET VIDEO — MOBILE
+   ============================================================ */
+
+@media (max-width: 600px) {
+
+    .inset-video-section {
+        padding: 80px 5vw 70px;
+    }
+
+    .inset-video-heading {
+        display: block;
+
+        margin-bottom: 32px;
+    }
+
+    .inset-video-heading h2 {
+        margin-bottom: 18px;
+    }
+
+    .inset-video-heading p {
+        font-size: 34px;
+        line-height: 1.02;
+    }
+
+    .inset-video {
+        width: 100%;
+    }
+
+    .inset-video-frame {
+        aspect-ratio: 4 / 3;
+    }
+
+    .inset-video-controls {
+        height: 58px;
+
+        padding: 0 16px;
+
+        gap: 16px;
+    }
+
+    .inset-video-control,
+    .inset-video-audio {
+        font-size: 8px;
+    }
+
+    .inset-video-progress {
+        min-width: 40px;
+    }
+
+    .inset-video-caption {
+        width: 100%;
+
+        margin-top: 14px;
+
+        font-size: 9px;
+    }
+
+    .inset-video-caption span:last-child {
+        text-align: right;
+    }
+
+}
