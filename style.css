@@ -15,6 +15,32 @@
     box-sizing: border-box;
 }
 
+
+/* ============================================================
+   MARR SANS
+   ============================================================ */
+
+@font-face {
+    font-family: "Marr Sans";
+    src: url("fonts/MarrSans-Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Marr Sans";
+    src: url("fonts/MarrSans-Bold.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+/* ============================================================
+   BASE
+   ============================================================ */
+
 html {
     scroll-behavior: smooth;
 }
@@ -22,8 +48,10 @@ html {
 body {
     background: #f1efe8;
     color: #171714;
+
     font-family: "Manrope", sans-serif;
     font-weight: 300;
+
     -webkit-font-smoothing: antialiased;
 }
 
@@ -64,55 +92,186 @@ figure {
 
     color: #f5f2e9;
 
-    mix-blend-mode: difference;
+    background: rgba(23, 23, 20, .92);
 
     pointer-events: none;
+        transition: transform .4s cubic-bezier(.2, .7, .2, 1);
+
 }
 
+
+/* ============================================================
+   HEADER INTERACTION
+   ============================================================ */
+
 .site-header a,
+.site-header button,
 .site-header nav {
     pointer-events: auto;
 }
 
-.site-mark {
-    font-family: "Manrope", sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: .08em;
+
+/* ============================================================
+   LEFT — BARD
+   ============================================================ */
+
+.site-mark-wrap {
+    position: relative;
+
+    width: max-content;
+
+    justify-self: start;
 }
+
+.site-mark {
+    display: block;
+
+    appearance: none;
+
+    margin: 0;
+    padding: 0;
+
+    border: 0;
+
+    background: transparent;
+    color: inherit;
+
+    cursor: pointer;
+
+    font-family: "Marr Sans", sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+
+    letter-spacing: .015em;
+    line-height: 1.25;
+
+    text-transform: uppercase;
+}
+
+
+/* ============================================================
+   CENTER — NAVIGATION
+   ============================================================ */
 
 .site-nav {
     display: flex;
+
+    justify-self: center;
+
     gap: 28px;
 
-    font-family: "DM Mono", monospace;
+    font-family: "Marr Sans", sans-serif;
     font-size: 10px;
-    letter-spacing: .08em;
+    font-weight: 400;
+
+    letter-spacing: .035em;
+    line-height: 1.5;
+
     text-transform: uppercase;
 }
 
 .site-nav a {
-    transition: opacity .3s ease;
+    display: block;
+
+    color: inherit;
+
+    transition: opacity .25s ease;
 }
 
 .site-nav a:hover {
     opacity: .5;
 }
 
+
+/* ============================================================
+   RIGHT — A PLACE TO THINK
+   ============================================================ */
+
 .header-meta {
     justify-self: end;
 
     text-align: right;
 
-    font-family: "DM Mono", monospace;
+    color: inherit;
+
+    font-family: "Marr Sans", sans-serif;
     font-size: 9px;
-    line-height: 1.3;
-    letter-spacing: .08em;
+    font-weight: 400;
+
+    letter-spacing: .035em;
+    line-height: 1.45;
+
+    text-transform: uppercase;
 }
 
 
 /* ============================================================
-   HERO — VIMEO BACKGROUND
+   BARD DROPDOWN
+   ============================================================ */
+
+.site-dropdown {
+    position: absolute;
+
+    top: calc(100% + 14px);
+    left: 0;
+
+    min-width: 230px;
+
+    padding: 10px 0;
+
+    background: #f1efe8;
+    color: #171714;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform: translateY(-5px);
+
+    transition:
+        opacity .2s ease,
+        transform .2s ease,
+        visibility .2s ease;
+
+    pointer-events: none;
+
+    z-index: 2000;
+}
+
+.site-mark-wrap.is-open .site-dropdown {
+    opacity: 1;
+    visibility: visible;
+
+    transform: translateY(0);
+
+    pointer-events: auto;
+}
+
+.site-dropdown a {
+    display: block;
+
+    padding: 7px 18px;
+
+    color: #171714;
+
+    font-family: "Marr Sans", sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+
+    letter-spacing: .015em;
+    line-height: 1.5;
+
+    white-space: nowrap;
+
+    transition: opacity .2s ease;
+}
+
+.site-dropdown a:hover {
+    opacity: .5;
+}
+
+
+/* ============================================================
+   HERO
    ============================================================ */
 
 .hero {
@@ -126,8 +285,6 @@ figure {
 
     background: #111;
     color: #f5f2e9;
-
-    cursor: default;
 }
 
 
@@ -137,6 +294,7 @@ figure {
 
 .hero-video {
     position: absolute;
+
     inset: 0;
 
     width: 100%;
@@ -175,6 +333,7 @@ figure {
 
 .hero-overlay {
     position: absolute;
+
     inset: 0;
 
     z-index: 2;
@@ -197,6 +356,7 @@ figure {
 
 .hero-content {
     position: absolute;
+
     inset: 0;
 
     z-index: 3;
@@ -222,22 +382,27 @@ figure {
 
 .eyebrow {
     font-family: "DM Mono", monospace;
+
     font-size: 10px;
+
     letter-spacing: .12em;
+    line-height: 1.5;
 }
 
 .hero h1 {
     max-width: 1050px;
 
-    font-family: "Cormorant Garamond", serif;
-    font-size: clamp(76px, 11vw, 170px);
-    font-weight: 400;
-    line-height: .78;
-    letter-spacing: -.045em;
+    font-family: "Marr Sans", sans-serif;
+
+    font-size: clamp(70px, 10.5vw, 165px);
+    font-weight: 700;
+
+    line-height: .9;
+    letter-spacing: -.035em;
 }
 
 .hero h1 em {
-    font-weight: 400;
+    font-weight: 700;
 }
 
 .hero-bottom {
@@ -253,71 +418,21 @@ figure {
     max-width: 480px;
 
     font-family: "Cormorant Garamond", serif;
+
     font-size: clamp(25px, 3vw, 43px);
-    line-height: .98;
+
+    line-height: 1.04;
 }
 
 .scroll-note {
     font-family: "DM Mono", monospace;
+
     font-size: 9px;
+
     letter-spacing: .1em;
+    line-height: 1.5;
+
     white-space: nowrap;
-}
-
-
-
-/* ============================================================
-   FULL WIDTH VIDEO
-   ============================================================ */
-
-.video-section {
-    position: relative;
-
-    width: 100%;
-
-    background: #0b0b0a;
-    color: #f1efe8;
-
-    overflow: hidden;
-}
-
-.video-frame {
-    position: relative;
-
-    width: 100%;
-    aspect-ratio: 16 / 9;
-
-    overflow: hidden;
-}
-
-.video-frame iframe {
-    position: absolute;
-    inset: 0;
-
-    width: 100%;
-    height: 100%;
-
-    border: 0;
-}
-
-.video-opening .video-frame {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-}
-
-.video-label {
-    position: absolute;
-
-    z-index: 5;
-
-    top: 18px;
-    left: 22px;
-
-    font-family: "DM Mono", monospace;
-    font-size: 9px;
-    letter-spacing: .08em;
-
-    mix-blend-mode: difference;
 }
 
 
@@ -336,7 +451,9 @@ figure {
 
 .story-intro {
     display: grid;
+
     grid-template-columns: 1fr 3fr;
+
     gap: 40px;
 }
 
@@ -344,24 +461,32 @@ figure {
 .chapter-break > span,
 .ending-number {
     font-family: "DM Mono", monospace;
+
     font-size: 10px;
+
     letter-spacing: .1em;
+    line-height: 1.5;
 }
 
 .story-intro h2,
 .chapter-break h2 {
     max-width: 1100px;
 
-    font-family: "Cormorant Garamond", serif;
-    font-weight: 400;
-    font-size: clamp(70px, 10vw, 155px);
-    line-height: .82;
-    letter-spacing: -.045em;
+    font-family: "Marr Sans", sans-serif;
+
+    font-weight: 700;
+
+    font-size: clamp(65px, 9.5vw, 150px);
+
+    line-height: .9;
+    letter-spacing: -.035em;
 }
 
 .chapter-break {
     display: grid;
+
     grid-template-columns: 1fr 3fr;
+
     gap: 40px;
 
     padding-top: 230px;
@@ -379,7 +504,9 @@ figure {
     padding: 60px 5vw 130px;
 
     display: grid;
+
     grid-template-columns: repeat(12, 1fr);
+
     column-gap: 2vw;
 }
 
@@ -389,9 +516,11 @@ figure {
     margin-bottom: 34px;
 
     font-family: "Cormorant Garamond", serif;
+
     font-size: clamp(27px, 3.2vw, 50px);
-    line-height: 1.08;
-    letter-spacing: -.015em;
+
+    line-height: 1.12;
+    letter-spacing: -.01em;
 }
 
 .text-block p:last-child {
@@ -402,6 +531,7 @@ figure {
     float: left;
 
     font-size: 2.8em;
+
     line-height: .72;
 
     margin-right: .06em;
@@ -409,7 +539,8 @@ figure {
 
 .text-block .emphasis {
     font-size: clamp(38px, 5vw, 76px);
-    line-height: .95;
+
+    line-height: 1;
 }
 
 
@@ -420,10 +551,13 @@ figure {
 .statement {
     padding: 130px 5vw 170px;
 
-    font-family: "Cormorant Garamond", serif;
+    font-family: "Marr Sans", sans-serif;
+
     font-size: clamp(55px, 8vw, 130px);
-    line-height: .83;
-    letter-spacing: -.045em;
+    font-weight: 700;
+
+    line-height: .91;
+    letter-spacing: -.035em;
 }
 
 .statement p {
@@ -437,7 +571,7 @@ figure {
 
     margin-left: 18vw;
 
-    font-weight: 400;
+    font-weight: 700;
 }
 
 .statement-large {
@@ -446,7 +580,7 @@ figure {
 }
 
 .statement-large p + p {
-    margin-top: 35px;
+    margin-top: 40px;
 }
 
 
@@ -463,6 +597,8 @@ figure {
 }
 
 .editorial-image img {
+    display: block;
+
     width: 100%;
     height: auto;
 
@@ -478,8 +614,12 @@ figure {
     padding: 12px 5vw 0;
 
     font-family: "DM Mono", monospace;
+
     font-size: 9px;
+
     letter-spacing: .06em;
+    line-height: 1.5;
+
     text-transform: uppercase;
 }
 
@@ -489,6 +629,7 @@ figure {
 
 .image-wide img {
     aspect-ratio: 1.8 / 1;
+
     object-fit: cover;
 }
 
@@ -500,6 +641,7 @@ figure {
 
 .image-tall img {
     aspect-ratio: .76 / 1;
+
     object-fit: cover;
 }
 
@@ -511,16 +653,20 @@ figure {
 
 .image-tall-large img {
     aspect-ratio: .8 / 1;
+
     object-fit: cover;
 }
 
 .image-full img {
     aspect-ratio: 1.75 / 1;
+
     object-fit: cover;
 }
 
 .image-landscape img {
     aspect-ratio: 2.15 / 1;
+
+    object-fit: cover;
 }
 
 
@@ -534,7 +680,9 @@ figure {
     padding: 60px 5vw 140px;
 
     display: grid;
+
     grid-template-columns: 1fr 1fr;
+
     gap: 3vw;
 }
 
@@ -544,6 +692,7 @@ figure {
 
 .image-pair img {
     aspect-ratio: .82 / 1;
+
     object-fit: cover;
 }
 
@@ -551,20 +700,27 @@ figure {
     padding-top: 12px;
 
     font-family: "DM Mono", monospace;
+
     font-size: 9px;
+
     letter-spacing: .06em;
+    line-height: 1.5;
+
     text-transform: uppercase;
 }
 
 
- /* ============================================================
-    LANDSCAPE FEATURE — IMAGE + OVERLAID TYPE
-    ============================================================ */
+/* ============================================================
+   LANDSCAPE FEATURE
+   ============================================================ */
 
 .landscape-feature {
     position: relative;
+
     width: 100%;
+
     overflow: hidden;
+
     background: #171714;
 }
 
@@ -574,13 +730,17 @@ figure {
 
 .landscape-feature .editorial-image img {
     display: block;
+
     width: 100%;
+
     aspect-ratio: 16 / 9;
+
     object-fit: cover;
 }
 
 .landscape-type {
     position: absolute;
+
     inset: 0;
 
     z-index: 5;
@@ -588,6 +748,7 @@ figure {
     padding: 5vw;
 
     display: flex;
+
     align-items: center;
 
     pointer-events: none;
@@ -598,510 +759,77 @@ figure {
 .landscape-type p {
     max-width: 1350px;
 
-    font-family: "Cormorant Garamond", serif;
+    font-family: "Marr Sans", sans-serif;
+
     font-size: clamp(65px, 10vw, 160px);
-    line-height: .82;
-    letter-spacing: -.05em;
+    font-weight: 700;
+
+    line-height: .9;
+    letter-spacing: -.035em;
 }
 
 .landscape-type em {
     display: block;
+
     margin-left: 18vw;
-    font-weight: 400;
+
+    font-weight: 700;
 }
 
 
 /* ============================================================
-   MOBILE
+   VIDEO
    ============================================================ */
 
-@media (max-width: 600px) {
+.video-section {
+    position: relative;
 
-    .landscape-feature .editorial-image img {
-        aspect-ratio: 1.1 / 1;
-    }
-
-    .landscape-type {
-        padding: 18px;
-    }
-
-    .landscape-type p {
-        font-size: 18vw;
-    }
-
-    .landscape-type em {
-        margin-left: 12vw;
-    }
-
-}
-
-/* ============================================================
-   ENDING
-   ============================================================ */
-
-.ending {
-    padding: 230px 5vw 180px;
-
-    background: #171714;
-    color: #f1efe8;
-}
-
-.ending h2 {
-    margin-top: 80px;
-
-    max-width: 1200px;
-
-    font-family: "Cormorant Garamond", serif;
-    font-size: clamp(75px, 11vw, 175px);
-    line-height: .78;
-    font-weight: 400;
-    letter-spacing: -.05em;
-}
-
-.ending-text {
     width: 100%;
 
-    margin-top: 180px;
+    background: #0b0b0a;
 
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-}
+    color: #f1efe8;
 
-.ending-text p {
-    grid-column: 4 / 11;
-
-    margin-bottom: 60px;
-
-    font-family: "Cormorant Garamond", serif;
-    font-size: clamp(29px, 3.4vw, 52px);
-    line-height: 1.05;
-}
-
-.ending-text .final-line {
-    font-size: clamp(42px, 5vw, 75px);
-    line-height: .92;
-}
-
-.ending-text .final-line-last {
-    margin-left: 12vw;
-}
-
-
-/* ============================================================
-   FOOTER
-   ============================================================ */
-
-.site-footer {
-    padding: 20px 24px 24px;
-
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-
-    font-family: "DM Mono", monospace;
-    font-size: 9px;
-    line-height: 1.4;
-    letter-spacing: .07em;
-    text-transform: uppercase;
-}
-
-.site-footer div:nth-child(2) {
-    text-align: center;
-}
-
-.site-footer div:last-child {
-    text-align: right;
-}
-
-
-/* ============================================================
-   REVEAL ANIMATION
-   ============================================================ */
-
-.reveal {
-    opacity: 0;
-    transform: translateY(35px);
-
-    transition:
-        opacity 1s ease,
-        transform 1s cubic-bezier(.2, .7, .2, 1);
-}
-
-.reveal.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-
-/* ============================================================
-   TABLET
-   ============================================================ */
-
-@media (max-width: 900px) {
-
-    .site-header {
-        padding: 17px 18px;
-        grid-template-columns: 1fr auto;
-    }
-
-    .header-meta {
-        display: none;
-    }
-
-    .site-nav {
-        gap: 18px;
-    }
-
-    .hero-content {
-        padding: 110px 5vw 30px;
-    }
-
-    .hero h1 {
-        font-size: clamp(70px, 14vw, 125px);
-    }
-
-    .story-intro,
-    .chapter-break {
-        grid-template-columns: 1fr 4fr;
-    }
-
-    .text-block p {
-        grid-column: 3 / 12;
-    }
-
-    .ending-text p {
-        grid-column: 3 / 12;
-    }
-
-    .image-tall {
-        width: 65vw;
-        margin-left: 17vw;
-    }
-
-    .image-tall-large {
-        width: 70vw;
-        margin-left: 15vw;
-    }
-
-}
-
-
-/* ============================================================
-   MOBILE
-   ============================================================ */
-
-@media (max-width: 600px) {
-
-    .site-header {
-        padding: 15px;
-    }
-
-    .site-mark {
-        font-size: 11px;
-    }
-
-    .site-nav {
-        font-size: 8px;
-        gap: 14px;
-    }
-
-
-    /* ========================================================
-       HERO
-       ======================================================== */
-
-    .hero {
-        min-height: 650px;
-    }
-
-    .hero-content {
-        padding: 95px 18px 25px;
-    }
-
-    .hero h1 {
-        font-size: 19vw;
-        line-height: .78;
-    }
-
-    .hero-bottom {
-        display: block;
-    }
-
-    .hero-intro {
-        max-width: 310px;
-
-        margin-bottom: 35px;
-
-        font-size: 27px;
-    }
-
-    .scroll-note {
-        font-size: 8px;
-    }
-
-
-    /* ========================================================
-       VIDEO - MOBILE
-       ======================================================== */
-
-@media (max-width: 600px) {
-
-    .landscape-feature .editorial-image {
-    height: 175vw;
     overflow: hidden;
 }
 
-.landscape-feature .editorial-image img {
+.video-frame {
+    position: relative;
+
+    width: 100%;
+
+    aspect-ratio: 16 / 9;
+
+    overflow: hidden;
+}
+
+.video-frame iframe {
+    position: absolute;
+
+    inset: 0;
+
     width: 100%;
     height: 100%;
-    object-fit: cover;
+
+    border: 0;
 }
 
+.video-label {
+    position: absolute;
 
+    z-index: 5;
 
+    top: 18px;
+    left: 22px;
 
-    .video-frame {
-        position: relative;
-        width: 100%;
-        height: 75vw;
-        aspect-ratio: auto;
-        overflow: hidden;
-    }
+    font-family: "DM Mono", monospace;
 
-    .video-frame iframe {
-        position: absolute;
-        top: 50%;
-        left: 50%;
+    font-size: 9px;
 
-        width: 133.33%;
-        height: 133.33%;
+    letter-spacing: .08em;
+    line-height: 1.4;
 
-        transform: translate(-50%, -50%);
-        border: 0;
-    }
-
-    .video-opening .video-frame {
-        height: 75vw;
-        aspect-ratio: auto;
-    }
-
-}
-
-    /* ========================================================
-       STORY
-       ======================================================== */
-
-    .story-intro,
-    .chapter-break {
-        display: block;
-
-        padding: 120px 18px 75px;
-    }
-
-    .story-number,
-    .chapter-break > span {
-        display: block;
-
-        margin-bottom: 40px;
-    }
-
-    .story-intro h2,
-    .chapter-break h2 {
-        font-size: 19vw;
-        line-height: .8;
-    }
-
-
-    /* ========================================================
-       TEXT
-       ======================================================== */
-
-    .text-block {
-        display: block;
-
-        padding: 25px 18px 90px;
-    }
-
-    .text-block p {
-        margin-bottom: 28px;
-
-        font-size: 29px;
-        line-height: 1.03;
-    }
-
-    .text-block .emphasis {
-        font-size: 39px;
-    }
-
-
-    /* ========================================================
-       STATEMENTS
-       ======================================================== */
-
-    .statement {
-        padding: 100px 18px 120px;
-
-        font-size: 18vw;
-    }
-
-    .statement em {
-        margin-left: 15vw;
-        margin-top: 20px;
-    }
-
-    .statement-large {
-        padding-top: 120px;
-        padding-bottom: 130px;
-    }
-
-
-    /* ========================================================
-       IMAGES
-       ======================================================== */
-
-    .image-wide {
-        padding: 0 18px;
-    }
-
-    .image-wide img {
-        aspect-ratio: 1.15 / 1;
-    }
-
-    .image-tall,
-    .image-tall-large {
-        width: 78vw;
-        margin-left: 11vw;
-    }
-
-    .image-full img {
-        aspect-ratio: .9 / 1;
-    }
-
-    .image-landscape img {
-        aspect-ratio: 1.1 / 1;
-    }
-
-    .editorial-image figcaption {
-        padding: 10px 18px 0;
-    }
-
-
-    /* ========================================================
-       IMAGE PAIR
-       ======================================================== */
-
-    .image-pair {
-        display: block;
-
-        padding: 30px 18px 100px;
-    }
-
-    .image-pair figure:first-child {
-        padding-top: 0;
-        margin-bottom: 60px;
-    }
-
-    .image-pair img {
-        aspect-ratio: .82 / 1;
-    }
-
-
-    /* ========================================================
-       FULL BLEED TYPE
-       ======================================================== */
-
-    .full-bleed-type {
-        min-height: 70vh;
-
-        padding: 70px 18px;
-    }
-
-    .full-bleed-type p {
-        font-size: 18vw;
-    }
-
-    .full-bleed-type em {
-        margin-left: 12vw;
-    }
-
-
-    /* ========================================================
-       ENDING
-       ======================================================== */
-
-    .ending {
-        padding: 130px 18px 100px;
-    }
-
-    .ending h2 {
-        margin-top: 50px;
-
-        font-size: 19vw;
-    }
-
-    .ending-text {
-        display: block;
-
-        margin-top: 100px;
-    }
-
-    .ending-text p {
-        margin-bottom: 40px;
-
-        font-size: 30px;
-    }
-
-    .ending-text .final-line {
-        font-size: 42px;
-    }
-
-    .ending-text .final-line-last {
-        margin-left: 10vw;
-    }
-
-
-    /* ========================================================
-       FOOTER
-       ======================================================== */
-
-    .site-footer {
-        padding: 18px;
-
-        grid-template-columns: 1fr 1fr;
-
-        row-gap: 15px;
-    }
-
-    .site-footer div:nth-child(2) {
-        text-align: right;
-    }
-
-    .site-footer div:last-child {
-        grid-column: 1 / -1;
-
-        text-align: left;
-    }
-
-}
-
-
-/* ============================================================
-   REDUCED MOTION
-   ============================================================ */
-
-@media (prefers-reduced-motion: reduce) {
-
-    html {
-        scroll-behavior: auto;
-    }
-
-    *,
-    *::before,
-    *::after {
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: .01ms !important;
-    }
-
+    mix-blend-mode: difference;
 }
 
 
@@ -1117,13 +845,9 @@ figure {
     padding: 120px 5vw 100px;
 
     background: #f1efe8;
+
     color: #171714;
 }
-
-
-/* ============================================================
-   INSET VIDEO — HEADING
-   ============================================================ */
 
 .inset-video-heading {
     width: 100%;
@@ -1132,6 +856,7 @@ figure {
     margin: 0 auto 48px;
 
     display: grid;
+
     grid-template-columns: 1fr 3fr;
 
     gap: 40px;
@@ -1139,9 +864,13 @@ figure {
 
 .inset-video-heading h2 {
     font-family: "DM Mono", monospace;
+
     font-size: 11px;
     font-weight: 400;
+
     letter-spacing: .08em;
+    line-height: 1.5;
+
     text-transform: uppercase;
 }
 
@@ -1149,15 +878,13 @@ figure {
     max-width: 700px;
 
     font-family: "Cormorant Garamond", serif;
+
     font-size: clamp(28px, 3.2vw, 52px);
+
     font-style: italic;
-    line-height: 1.02;
+
+    line-height: 1.06;
 }
-
-
-/* ============================================================
-   INSET VIDEO — CONTAINER
-   ============================================================ */
 
 .inset-video {
     position: relative;
@@ -1172,6 +899,7 @@ figure {
     position: relative;
 
     width: 100%;
+
     aspect-ratio: 16 / 9;
 
     overflow: hidden;
@@ -1183,6 +911,7 @@ figure {
 
 .inset-video-frame iframe {
     position: absolute;
+
     inset: 0;
 
     width: 100%;
@@ -1190,16 +919,12 @@ figure {
 
     border: 0;
 
-    /*
-       The iframe doesn't receive the click.
-       The parent .inset-video-frame does.
-    */
     pointer-events: none;
 }
 
 
 /* ============================================================
-   INSET VIDEO — EDITORIAL CONTROLS
+   INSET VIDEO CONTROLS
    ============================================================ */
 
 .inset-video-controls {
@@ -1215,6 +940,7 @@ figure {
     padding: 0 22px;
 
     display: flex;
+
     align-items: center;
 
     gap: 22px;
@@ -1239,12 +965,8 @@ figure {
     opacity: 1;
 }
 
-
-/* ============================================================
-   INSET VIDEO — PLAY / PAUSE
-   ============================================================ */
-
-.inset-video-control {
+.inset-video-control,
+.inset-video-audio {
     flex: 0 0 auto;
 
     width: auto;
@@ -1253,10 +975,12 @@ figure {
     padding: 0;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
     border: 0;
+
     background: none;
 
     color: #f1efe8;
@@ -1264,15 +988,20 @@ figure {
     cursor: pointer;
 
     font-family: "DM Mono", monospace;
+
     font-size: 9px;
+
     line-height: 1;
+
     letter-spacing: .08em;
+
     text-transform: uppercase;
 
     transition: opacity .25s ease;
 }
 
-.inset-video-control:hover {
+.inset-video-control:hover,
+.inset-video-audio:hover {
     opacity: .55;
 }
 
@@ -1294,11 +1023,6 @@ figure {
     border-left: 6px solid currentColor;
 }
 
-
-/* ============================================================
-   PAUSE ICON
-   ============================================================ */
-
 .inset-video.is-playing .play-icon {
     width: 7px;
     height: 9px;
@@ -1313,44 +1037,7 @@ figure {
 
 
 /* ============================================================
-   AUDIO CONTROL
-   ============================================================ */
-
-.inset-video-audio {
-    flex: 0 0 auto;
-
-    width: auto;
-    height: auto;
-
-    padding: 0;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border: 0;
-    background: none;
-
-    color: #f1efe8;
-
-    cursor: pointer;
-
-    font-family: "DM Mono", monospace;
-    font-size: 9px;
-    line-height: 1;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-
-    transition: opacity .25s ease;
-}
-
-.inset-video-audio:hover {
-    opacity: .55;
-}
-
-
-/* ============================================================
-   AUDIO LABELS
+   AUDIO
    ============================================================ */
 
 .audio-icon {
@@ -1387,11 +1074,6 @@ figure {
     opacity: 1;
 }
 
-
-/*
-   Hide the old speaker construction completely.
-*/
-
 .speaker,
 .audio-x,
 .audio-wave {
@@ -1400,7 +1082,7 @@ figure {
 
 
 /* ============================================================
-   INSET VIDEO — PROGRESS
+   PROGRESS
    ============================================================ */
 
 .inset-video-progress {
@@ -1411,6 +1093,7 @@ figure {
     height: 20px;
 
     display: flex;
+
     align-items: center;
 
     cursor: pointer;
@@ -1440,11 +1123,6 @@ figure {
 
     transition: width .08s linear;
 }
-
-
-/* ============================================================
-   INSET VIDEO — PROGRESS HANDLE
-   ============================================================ */
 
 .inset-video-progress::before {
     content: "";
@@ -1478,7 +1156,7 @@ figure {
 
 
 /* ============================================================
-   INSET VIDEO — CAPTION
+   INSET VIDEO CAPTION
    ============================================================ */
 
 .inset-video-caption {
@@ -1488,14 +1166,19 @@ figure {
     margin: 18px auto 0;
 
     display: flex;
+
     justify-content: space-between;
 
     gap: 30px;
 
     font-family: "DM Mono", monospace;
+
     font-size: 10px;
-    line-height: 1.4;
+
+    line-height: 1.5;
+
     letter-spacing: .04em;
+
     text-transform: uppercase;
 }
 
@@ -1505,10 +1188,663 @@ figure {
 
 
 /* ============================================================
-   INSET VIDEO — MOBILE
+   VIDEO CAPTION
    ============================================================ */
 
-   @media (max-width: 600px) {
+.video-caption {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: baseline;
+
+    padding: 12px 0 0;
+
+    font-family: "DM Mono", monospace;
+
+    font-size: 10px;
+
+    line-height: 1.4;
+
+    letter-spacing: .08em;
+
+    text-transform: uppercase;
+
+    color: #171714;
+}
+
+
+/* ============================================================
+   SCROLL-DRIVEN IMAGE GALLERY
+   ============================================================ */
+
+.image-scroll-section {
+    position: relative;
+
+    width: 100%;
+
+    height: 500vh;
+
+    background: #f1efe8;
+}
+
+.image-scroll-sticky {
+    position: sticky;
+
+    top: 0;
+
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: #f1efe8;
+}
+
+.image-scroll-header {
+    position: absolute;
+
+    top: 32px;
+
+    left: 5vw;
+    right: 5vw;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    font-family: "DM Mono", monospace;
+
+    font-size: 10px;
+
+    letter-spacing: .12em;
+    line-height: 1.5;
+
+    text-transform: uppercase;
+
+    color: #77766f;
+
+    z-index: 10;
+}
+
+.image-scroll-stage {
+    position: relative;
+
+    width: 100vw;
+
+    aspect-ratio: 16 / 9;
+
+    overflow: hidden;
+}
+
+.image-scroll-item {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    margin: 0;
+
+    opacity: 0;
+
+    transition: opacity .8s ease-in-out;
+
+    pointer-events: none;
+}
+
+.image-scroll-item.active {
+    opacity: 1;
+}
+
+.image-scroll-item img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+.image-scroll-caption {
+    position: absolute;
+
+    left: 5vw;
+    right: 5vw;
+    bottom: 32px;
+
+    display: flex;
+
+    align-items: baseline;
+
+    padding-right: 90px;
+
+    font-family: "DM Mono", monospace;
+
+    font-size: 10px;
+
+    line-height: 1.5;
+
+    letter-spacing: .06em;
+
+    text-transform: uppercase;
+
+    color: #171714;
+
+    z-index: 10;
+}
+
+.caption-text {
+    display: block;
+
+    max-width: 900px;
+}
+
+.image-scroll-counter {
+    position: absolute;
+
+    right: 5vw;
+    bottom: 32px;
+
+    font-family: "DM Mono", monospace;
+
+    font-size: 10px;
+
+    line-height: 1.5;
+
+    letter-spacing: .12em;
+
+    text-transform: uppercase;
+
+    color: #77766f;
+
+    z-index: 10;
+}
+
+.current-image {
+    color: #171714;
+}
+
+
+/* ============================================================
+   ENDING
+   ============================================================ */
+
+.ending {
+    padding: 230px 5vw 180px;
+
+    background: #171714;
+
+    color: #f1efe8;
+}
+
+.ending h2 {
+    margin-top: 80px;
+
+    max-width: 1200px;
+
+    font-family: "Marr Sans", sans-serif;
+
+    font-size: clamp(70px, 10.5vw, 165px);
+
+    line-height: .9;
+
+    font-weight: 700;
+
+    letter-spacing: -.035em;
+}
+
+.ending-text {
+    width: 100%;
+
+    margin-top: 180px;
+
+    display: grid;
+
+    grid-template-columns: repeat(12, 1fr);
+}
+
+.ending-text p {
+    grid-column: 4 / 11;
+
+    margin-bottom: 60px;
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: clamp(29px, 3.4vw, 52px);
+
+    line-height: 1.1;
+}
+
+.ending-text .final-line {
+    font-size: clamp(42px, 5vw, 75px);
+
+    line-height: .97;
+}
+
+.ending-text .final-line-last {
+    margin-left: 12vw;
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.site-footer {
+    padding: 20px 24px 24px;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr 1fr;
+
+    font-family: "DM Mono", monospace;
+
+    font-size: 9px;
+
+    line-height: 1.5;
+
+    letter-spacing: .07em;
+
+    text-transform: uppercase;
+}
+
+.site-footer div:nth-child(2) {
+    text-align: center;
+}
+
+.site-footer div:last-child {
+    text-align: right;
+}
+
+
+/* ============================================================
+   REVEAL
+   ============================================================ */
+
+.reveal {
+    opacity: 0;
+
+    transform: translateY(35px);
+
+    transition:
+        opacity 1s ease,
+        transform 1s cubic-bezier(.2, .7, .2, 1);
+}
+
+.reveal.is-visible {
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+
+/* ============================================================
+   TABLET
+   ============================================================ */
+
+@media (max-width: 900px) {
+
+    .site-header {
+        padding: 17px 18px;
+
+        grid-template-columns: 1fr auto 1fr;
+    }
+
+    .site-nav {
+        gap: 20px;
+    }
+
+    .header-meta {
+        font-size: 8px;
+    }
+
+    .hero-content {
+        padding: 110px 5vw 30px;
+    }
+
+    .hero h1 {
+        font-size: clamp(70px, 14vw, 125px);
+
+        line-height: .88;
+    }
+
+    .story-intro,
+    .chapter-break {
+        grid-template-columns: 1fr 4fr;
+    }
+
+    .text-block p {
+        grid-column: 3 / 12;
+    }
+
+    .ending-text p {
+        grid-column: 3 / 12;
+    }
+
+    .image-tall {
+        width: 65vw;
+
+        margin-left: 17vw;
+    }
+
+    .image-tall-large {
+        width: 70vw;
+
+        margin-left: 15vw;
+    }
+}
+
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 600px) {
+
+    .site-header {
+        padding: 15px;
+
+        grid-template-columns: auto 1fr auto;
+    }
+
+    .site-mark {
+        font-size: 11px;
+
+        letter-spacing: .01em;
+    }
+
+    .site-nav {
+        justify-self: center;
+
+        gap: 14px;
+
+        font-size: 8px;
+
+        letter-spacing: .025em;
+    }
+
+    .header-meta {
+        display: block;
+
+        justify-self: end;
+
+        font-size: 7px;
+
+        letter-spacing: .025em;
+
+        line-height: 1.3;
+    }
+
+
+    /* ========================================================
+       DROPDOWN — MOBILE
+       ======================================================== */
+
+    .site-dropdown {
+        top: calc(100% + 11px);
+
+        min-width: 205px;
+
+        padding: 8px 0;
+    }
+
+    .site-dropdown a {
+        padding: 7px 15px;
+
+        font-size: 10px;
+    }
+
+
+    /* ========================================================
+       HERO
+       ======================================================== */
+
+    .hero {
+        min-height: 650px;
+    }
+
+    .hero-content {
+        padding: 95px 18px 25px;
+    }
+
+    .hero h1 {
+        font-size: 19vw;
+
+        line-height: .86;
+
+        letter-spacing: -.035em;
+    }
+
+    .hero-bottom {
+        display: block;
+    }
+
+    .hero-intro {
+        max-width: 310px;
+
+        margin-bottom: 35px;
+
+        font-size: 27px;
+
+        line-height: 1.04;
+    }
+
+    .scroll-note {
+        font-size: 8px;
+
+        line-height: 1.5;
+    }
+
+
+    /* ========================================================
+       VIDEO
+       ======================================================== */
+
+    .video-frame {
+        position: relative;
+
+        width: 100%;
+
+        height: 75vw;
+
+        aspect-ratio: auto;
+
+        overflow: hidden;
+    }
+
+    .video-frame iframe {
+        position: absolute;
+
+        top: 50%;
+        left: 50%;
+
+        width: 133.33%;
+        height: 133.33%;
+
+        transform: translate(-50%, -50%);
+
+        border: 0;
+    }
+
+
+    /* ========================================================
+       STORY
+       ======================================================== */
+
+    .story-intro,
+    .chapter-break {
+        display: block;
+
+        padding: 120px 18px 75px;
+    }
+
+    .story-number,
+    .chapter-break > span {
+        display: block;
+
+        margin-bottom: 40px;
+    }
+
+    .story-intro h2,
+    .chapter-break h2 {
+        font-size: 19vw;
+
+        line-height: .86;
+
+        letter-spacing: -.035em;
+    }
+
+
+    /* ========================================================
+       TEXT
+       ======================================================== */
+
+    .text-block {
+        display: block;
+
+        padding: 25px 18px 90px;
+    }
+
+    .text-block p {
+        margin-bottom: 28px;
+
+        font-size: 29px;
+
+        line-height: 1.08;
+    }
+
+    .text-block .emphasis {
+        font-size: 39px;
+
+        line-height: 1;
+    }
+
+
+    /* ========================================================
+       STATEMENTS
+       ======================================================== */
+
+    .statement {
+        padding: 100px 18px 120px;
+
+        font-size: 18vw;
+
+        line-height: .88;
+
+        letter-spacing: -.035em;
+    }
+
+    .statement em {
+        margin-left: 15vw;
+
+        margin-top: 20px;
+    }
+
+    .statement-large {
+        padding-top: 120px;
+
+        padding-bottom: 130px;
+    }
+
+
+    /* ========================================================
+       IMAGES
+       ======================================================== */
+
+    .image-wide {
+        padding: 0 18px;
+    }
+
+    .image-wide img {
+        aspect-ratio: 1.15 / 1;
+    }
+
+    .image-tall,
+    .image-tall-large {
+        width: 78vw;
+
+        margin-left: 11vw;
+    }
+
+    .image-full img {
+        aspect-ratio: .9 / 1;
+    }
+
+    .image-landscape img {
+        aspect-ratio: 1.1 / 1;
+    }
+
+    .editorial-image figcaption {
+        padding: 10px 18px 0;
+
+        line-height: 1.5;
+    }
+
+
+    /* ========================================================
+       IMAGE PAIR
+       ======================================================== */
+
+    .image-pair {
+        display: block;
+
+        padding: 30px 18px 100px;
+    }
+
+    .image-pair figure:first-child {
+        padding-top: 0;
+
+        margin-bottom: 60px;
+    }
+
+    .image-pair img {
+        aspect-ratio: .82 / 1;
+    }
+
+
+    /* ========================================================
+       LANDSCAPE
+       ======================================================== */
+
+    .landscape-feature .editorial-image {
+        height: 175vw;
+
+        overflow: hidden;
+    }
+
+    .landscape-feature .editorial-image img {
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+    }
+
+    .landscape-type {
+        padding: 18px;
+    }
+
+    .landscape-type p {
+        font-size: 18vw;
+
+        line-height: .86;
+
+        letter-spacing: -.035em;
+    }
+
+    .landscape-type em {
+        margin-left: 12vw;
+    }
+
+
+    /* ========================================================
+       INSET VIDEO
+       ======================================================== */
 
     .inset-video-section {
         padding: 80px 5vw 70px;
@@ -1516,6 +1852,7 @@ figure {
 
     .inset-video-heading {
         display: block;
+
         margin-bottom: 32px;
     }
 
@@ -1525,7 +1862,8 @@ figure {
 
     .inset-video-heading p {
         font-size: 34px;
-        line-height: 1.02;
+
+        line-height: 1.06;
     }
 
     .inset-video {
@@ -1534,23 +1872,15 @@ figure {
 
     .inset-video-frame {
         aspect-ratio: 16 / 9;
+
         overflow: hidden;
-        background: #0b0b0a;
-    }
-
-    .inset-video-frame iframe {
-        position: absolute;
-        inset: 0;
-
-        width: 100%;
-        height: 100%;
-
-        border: 0;
     }
 
     .inset-video-controls {
         height: 58px;
+
         padding: 0 16px;
+
         gap: 16px;
     }
 
@@ -1565,214 +1895,31 @@ figure {
 
     .inset-video-caption {
         width: 100%;
+
         margin-top: 14px;
+
         font-size: 9px;
+
+        line-height: 1.5;
     }
 
-    .inset-video-caption span:last-child {
-        text-align: right;
-    }
 
-}
-
-
-
-/* ============================================================
-   VIDEO CAPTION
-   ============================================================ */
-
-.video-caption {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-
-    padding: 12px 0 0;
-
-    font-family: "DM Mono", monospace;
-    font-size: 10px;
-    line-height: 1.2;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-
-    color: #171714;
-}
-
-@media (max-width: 600px) {
+    /* ========================================================
+       VIDEO CAPTION
+       ======================================================== */
 
     .video-caption {
         padding-top: 10px;
+
         font-size: 9px;
+
+        line-height: 1.45;
     }
 
-}
 
-/* ============================================================
-   SCROLL-DRIVEN IMAGE GALLERY
-   FULL WIDTH — 16:9 IMAGES
-   ============================================================ */
-
-.image-scroll-section {
-    position: relative;
-    width: 100%;
-    height: 500vh;
-    background: #f1efe8;
-}
-
-
-/* ============================================================
-   STICKY STAGE
-   ============================================================ */
-
-.image-scroll-sticky {
-    position: sticky;
-    top: 0;
-
-    width: 100%;
-    height: 100vh;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    overflow: hidden;
-
-    background: #f1efe8;
-}
-
-
-/* ============================================================
-   HEADER
-   ============================================================ */
-
-.image-scroll-header {
-    position: absolute;
-
-    top: 32px;
-    left: 5vw;
-    right: 5vw;
-
-    display: flex;
-    justify-content: space-between;
-
-    font-family: "DM Mono", monospace;
-    font-size: 10px;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-
-    color: #77766f;
-
-    z-index: 10;
-}
-
-
-/* ============================================================
-   IMAGE STAGE
-   ============================================================ */
-
-.image-scroll-stage {
-    position: relative;
-
-    width: 100vw;
-    aspect-ratio: 16 / 9;
-
-    overflow: hidden;
-}
-
-
-/* ============================================================
-   IMAGES
-   ============================================================ */
-
-.image-scroll-item {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-
-    opacity: 0;
-
-    transition: opacity 0.8s ease-in-out;
-
-    pointer-events: none;
-}
-
-.image-scroll-item.active {
-    opacity: 1;
-}
-
-.image-scroll-item img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-
-/* ============================================================
-   CAPTION
-   ============================================================ */
-
-.image-scroll-caption {
-    position: absolute;
-
-    left: 5vw;
-    right: 5vw;
-    bottom: 32px;
-
-    display: flex;
-    align-items: baseline;
-
-    padding-right: 90px;
-
-    font-family: "DM Mono", monospace;
-    font-size: 10px;
-    line-height: 1.4;
-    letter-spacing: .06em;
-    text-transform: uppercase;
-
-    color: #171714;
-
-    z-index: 10;
-}
-
-.caption-text {
-    display: block;
-    max-width: 900px;
-}
-
-
-/* ============================================================
-   COUNTER
-   ============================================================ */
-
-.image-scroll-counter {
-    position: absolute;
-
-    right: 5vw;
-    bottom: 32px;
-
-    font-family: "DM Mono", monospace;
-    font-size: 10px;
-    line-height: 1.3;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-
-    color: #77766f;
-
-    z-index: 10;
-}
-
-.current-image {
-    color: #171714;
-}
-
-
-/* ============================================================
-   MOBILE
-   ============================================================ */
-
-@media (max-width: 700px) {
+    /* ========================================================
+       SCROLL GALLERY
+       ======================================================== */
 
     .image-scroll-section {
         height: 500vh;
@@ -1784,11 +1931,13 @@ figure {
 
     .image-scroll-stage {
         width: 100vw;
+
         aspect-ratio: 16 / 9;
     }
 
     .image-scroll-header {
         top: 24px;
+
         left: 5vw;
         right: 5vw;
     }
@@ -1796,22 +1945,111 @@ figure {
     .image-scroll-caption {
         left: 5vw;
         right: 5vw;
+
         bottom: 24px;
 
         padding-right: 65px;
 
         font-size: 8px;
-        line-height: 1.35;
+
+        line-height: 1.45;
     }
 
     .image-scroll-counter {
         right: 5vw;
+
         bottom: 24px;
 
         font-size: 8px;
+
+        line-height: 1.45;
     }
 
+
+    /* ========================================================
+       ENDING
+       ======================================================== */
+
+    .ending {
+        padding: 130px 18px 100px;
+    }
+
+    .ending h2 {
+        margin-top: 50px;
+
+        font-size: 19vw;
+
+        line-height: .86;
+
+        letter-spacing: -.035em;
+    }
+
+    .ending-text {
+        display: block;
+
+        margin-top: 100px;
+    }
+
+    .ending-text p {
+        margin-bottom: 40px;
+
+        font-size: 30px;
+
+        line-height: 1.08;
+    }
+
+    .ending-text .final-line {
+        font-size: 42px;
+
+        line-height: .97;
+    }
+
+    .ending-text .final-line-last {
+        margin-left: 10vw;
+    }
+
+
+    /* ========================================================
+       FOOTER
+       ======================================================== */
+
+    .site-footer {
+        padding: 18px;
+
+        grid-template-columns: 1fr 1fr;
+
+        row-gap: 15px;
+
+        line-height: 1.5;
+    }
+
+    .site-footer div:nth-child(2) {
+        text-align: right;
+    }
+
+    .site-footer div:last-child {
+        grid-column: 1 / -1;
+
+        text-align: left;
+    }
 }
 
 
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
 
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+}

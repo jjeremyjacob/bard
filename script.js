@@ -942,6 +942,126 @@ if (imageGallery) {
 
 }
 
+/* ============================================================
+   BARD PAGE DROPDOWN
+   ============================================================ */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const menuWrap = document.querySelector(".site-mark-wrap");
+    const menuButton = document.getElementById("siteMenuButton");
+    const dropdown = document.getElementById("siteDropdown");
+
+    if (!menuWrap || !menuButton || !dropdown) return;
+
+    fetch("pages.json")
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Could not load pages.json");
+            }
+
+            return response.json();
+        })
+
+        .then(pages => {
+
+            dropdown.innerHTML = "";
+
+            pages.forEach(page => {
+
+                const link = document.createElement("a");
+
+                link.href = page.file;
+                link.textContent = page.title;
+
+                dropdown.appendChild(link);
+
+            });
+
+        })
+
+        .catch(error => {
+            console.error("Page menu error:", error);
+        });
+
+
+    /* OPEN / CLOSE */
+
+    menuButton.addEventListener("click", event => {
+
+        event.stopPropagation();
+
+        menuWrap.classList.toggle("is-open");
+
+    });
+
+
+    /* CLOSE WHEN CLICKING ELSEWHERE */
+
+    document.addEventListener("click", event => {
+
+        if (!menuWrap.contains(event.target)) {
+            menuWrap.classList.remove("is-open");
+        }
+
+    });
+
+
+    /* CLOSE WITH ESC */
+
+    document.addEventListener("keydown", event => {
+
+        if (event.key === "Escape") {
+            menuWrap.classList.remove("is-open");
+        }
+
+    });
+
+});
+
+
+/* ============================================================
+   HEADER SCROLLBACK
+   Hide header while scrolling down.
+   Bring it back when scrolling up.
+   ============================================================ */
+
+(function () {
+
+    const header = document.querySelector(".site-header");
+
+    if (!header) return;
+
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
+    function updateHeader() {
+
+        const currentScrollY = window.scrollY;
+
+        if (currentScrollY <= 20) {
+            header.classList.remove("header-hidden");
+        } else if (currentScrollY > lastScrollY) {
+            header.classList.add("header-hidden");
+        } else if (currentScrollY < lastScrollY) {
+            header.classList.remove("header-hidden");
+        }
+
+        lastScrollY = currentScrollY;
+        ticking = false;
+    }
+
+    window.addEventListener("scroll", function () {
+
+        if (!ticking) {
+            window.requestAnimationFrame(updateHeader);
+            ticking = true;
+        }
+
+    }, { passive: true });
+
+})();
+
 
 /* ============================================================
    PAGE LOAD

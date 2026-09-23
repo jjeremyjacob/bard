@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Bard — A Different Kind of Beginning</title>
+    <title>It's Different</title>
 
     <meta
         name="description"
@@ -24,22 +24,38 @@
 
 <body>
 
-    <header class="site-header">
+   <header class="site-header">
 
-        <a href="#top" class="site-mark">BARD</a>
+    <div class="site-mark-wrap">
 
-        <nav class="site-nav">
-            <a href="#story">Story</a>
-            <a href="#beginning">Beginning</a>
-            <a href="#end">End</a>
-        </nav>
+        <button
+            class="site-mark"
+            id="siteMenuButton"
+            type="button"
+            aria-expanded="false"
+            aria-controls="siteDropdown"
+        >
+            BARD
+        </button>
 
-        <div class="header-meta">
-            A DIFFERENT KIND<br>
-            OF BEGINNING
-        </div>
+        <div
+            class="site-dropdown"
+            id="siteDropdown"
+        ></div>
 
-    </header>
+    </div>
+
+    <nav class="site-nav">
+        <a href="#story">Story</a>
+        <a href="#video">Video</a>
+        <a href="#end">End</a>
+    </nav>
+
+    <div class="header-meta">
+        A PLACE TO THINK
+    </div>
+
+</header>
 
 
     <main id="top">
@@ -192,7 +208,7 @@
 
             <section class="inset-video-section">
 
-                <div class="inset-video-heading">
+                <div class="inset-video-heading" id="video">
 
                     <h2>
                         03
