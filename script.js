@@ -768,40 +768,43 @@ videoFrames.forEach((iframe) => {
 
 
 
-
 /* ============================================================
    SCROLL-DRIVEN IMAGE GALLERY
    ============================================================ */
 
-const imageGallery =
-    document.querySelector(".image-scroll-section");
+const imageGallery = document.querySelector(".image-scroll-section");
 
 if (imageGallery) {
 
     const galleryImages =
         imageGallery.querySelectorAll(".image-scroll-item");
 
-    const currentImage =
-        imageGallery.querySelector(".current-image");
+    const captionNumber =
+        imageGallery.querySelector(".caption-number");
 
     const captionText =
         imageGallery.querySelector(".caption-text");
 
+    const currentImage =
+        imageGallery.querySelector(".current-image");
+
+
+    /* ------------------------------------------------------------
+       CAPTIONS
+       ------------------------------------------------------------ */
 
     const captions = [
-
         "BLITHEWOOD MANOR ON THE ANNANDALE CAMPUS IS HOME TO THE ECONOMICS PROGRAM AT BARD",
-
-        "THE WASHINGTON MOMUMENT IN WASHINGTON, D.C.",
-
+        "THE WASHINGTON MONUMENT IN WASHINGTON, D.C.",
         "THE LINCOLN MEMORIAL IN WASHINGTON, D.C.",
-
         "VIEW OF THE CAPITOL BUILDING FROM THE LINCOLN MEMORIAL",
-
-        "Election@Bard Students Registering Bard Students to Vote"
-
+        "ELECTION@BARD STUDENTS REGISTERING BARD STUDENTS TO VOTE"
     ];
 
+
+    /* ------------------------------------------------------------
+       UPDATE GALLERY
+       ------------------------------------------------------------ */
 
     function updateImageGallery() {
 
@@ -814,20 +817,29 @@ if (imageGallery) {
         const viewportHeight =
             window.innerHeight;
 
-
         const scrollDistance =
             sectionHeight - viewportHeight;
 
 
-        const progress =
-            Math.max(
-                0,
-                Math.min(
-                    1,
-                    -rect.top / scrollDistance
-                )
-            );
+        if (scrollDistance <= 0) {
+            return;
+        }
 
+
+        /* --------------------------------------------------------
+           CALCULATE SCROLL PROGRESS
+           -------------------------------------------------------- */
+
+        let progress =
+            -rect.top / scrollDistance;
+
+        progress =
+            Math.max(0, Math.min(1, progress));
+
+
+        /* --------------------------------------------------------
+           DETERMINE CURRENT IMAGE
+           -------------------------------------------------------- */
 
         const imageIndex =
             Math.min(
@@ -837,6 +849,10 @@ if (imageGallery) {
                 )
             );
 
+
+        /* --------------------------------------------------------
+           ACTIVATE CURRENT IMAGE
+           -------------------------------------------------------- */
 
         galleryImages.forEach((image, index) => {
 
@@ -848,23 +864,58 @@ if (imageGallery) {
         });
 
 
-        if (currentImage) {
+        /* --------------------------------------------------------
+           FORMAT NUMBER
+           -------------------------------------------------------- */
 
-            currentImage.textContent =
-                String(imageIndex + 1).padStart(2, "0");
+        const number =
+            String(imageIndex + 1).padStart(2, "0");
+
+
+        /* --------------------------------------------------------
+           CAPTION NUMBER
+           
+           Non-breaking spaces are added here so the gap
+           between the number and caption is created by JS.
+           -------------------------------------------------------- */
+
+        if (captionNumber) {
+
+            captionNumber.textContent =
+                number + "\u00A0\u00A0\u00A0\u00A0";
 
         }
 
 
+        /* --------------------------------------------------------
+           CAPTION TEXT
+           -------------------------------------------------------- */
+
         if (captionText) {
 
             captionText.textContent =
-                captions[imageIndex];
+                captions[imageIndex] || "";
+
+        }
+
+
+        /* --------------------------------------------------------
+           BOTTOM-RIGHT COUNTER
+           -------------------------------------------------------- */
+
+        if (currentImage) {
+
+            currentImage.textContent =
+                number;
 
         }
 
     }
 
+
+    /* ------------------------------------------------------------
+       SCROLL EVENT
+       ------------------------------------------------------------ */
 
     window.addEventListener(
         "scroll",
@@ -873,17 +924,23 @@ if (imageGallery) {
     );
 
 
+    /* ------------------------------------------------------------
+       RESIZE EVENT
+       ------------------------------------------------------------ */
+
     window.addEventListener(
         "resize",
         updateImageGallery
     );
 
 
+    /* ------------------------------------------------------------
+       INITIALIZE
+       ------------------------------------------------------------ */
+
     updateImageGallery();
 
 }
-
-
 
 
 /* ============================================================
