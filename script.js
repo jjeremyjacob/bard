@@ -177,569 +177,379 @@ internalLinks.forEach((link) => {
 
 
 /* ============================================================
-   INSET VIMEO VIDEO
-   ENTIRE VIDEO CLICKABLE
+   VIMEO VIDEO CONTROLS
+   SHARED CONTROLS FOR INSET AND VERTICAL VIDEOS
    PLAY / PAUSE
    AUDIO
    PROGRESS
    SEEK
    ============================================================ */
 
-const insetVideo =
-    document.querySelector(".inset-video");
+if (typeof Vimeo !== "undefined") {
 
-if (
-    insetVideo &&
-    typeof Vimeo !== "undefined"
-) {
+    const videoContainers = document.querySelectorAll(
+        ".inset-video, .vertical-video-section"
+    );
 
-    const iframe =
-        insetVideo.querySelector("iframe");
+    videoContainers.forEach((videoContainer) => {
 
-    const frame =
-        insetVideo.querySelector(
-            ".inset-video-frame"
+        const iframe = videoContainer.querySelector("iframe");
+
+        const frame = videoContainer.querySelector(
+            ".inset-video-frame, .vertical-video-frame"
         );
 
-    const control =
-        insetVideo.querySelector(
+        const control = videoContainer.querySelector(
             ".inset-video-control"
         );
 
-    const audioControl =
-        insetVideo.querySelector(
+        const audioControl = videoContainer.querySelector(
             ".inset-video-audio"
         );
 
-    const progress =
-        insetVideo.querySelector(
+        const progress = videoContainer.querySelector(
             ".inset-video-progress"
         );
 
-    const progressFill =
-        insetVideo.querySelector(
+        const progressFill = videoContainer.querySelector(
             ".inset-video-progress-fill"
         );
 
+        if (!iframe) return;
 
-    /* ========================================================
-       CREATE VIMEO PLAYER
-       ======================================================== */
+        const player = new Vimeo.Player(iframe);
 
-    if (iframe) {
-
-        const player =
-            new Vimeo.Player(iframe);
-
-
-        /* ====================================================
-           CLICK ANYWHERE ON VIDEO
+        /* ----------------------------------------------------
            PLAY / PAUSE
-           ==================================================== */
+           Clicking the video toggles playback.
+           Clicking a control only triggers that control.
+           ---------------------------------------------------- */
 
         if (frame) {
 
-            frame.addEventListener(
-                "click",
-                async (event) => {
+            frame.addEventListener("click", async (event) => {
 
-                    /*
-                       Controls have their own actions.
-                       Don't let their clicks also
-                       trigger play / pause.
-                    */
-
-                    if (
-                        event.target.closest(
-                            ".inset-video-controls"
-                        )
-                    ) {
-                        return;
-                    }
-
-                    try {
-
-                        const paused =
-                            await player.getPaused();
-
-                        if (paused) {
-
-                            await player.play();
-
-                        } else {
-
-                            await player.pause();
-
-                        }
-
-                    } catch (error) {
-
-                        console.error(
-                            "Vimeo playback error:",
-                            error
-                        );
-
-                    }
-
+                if (event.target.closest(".inset-video-controls")) {
+                    return;
                 }
-            );
+
+                try {
+
+                    if (await player.getPaused()) {
+                        await player.play();
+                    } else {
+                        await player.pause();
+                    }
+
+                } catch (error) {
+                    console.error("Vimeo playback error:", error);
+                }
+
+            });
 
         }
-
-
-        /* ====================================================
-           PLAY / PAUSE BUTTON
-           ==================================================== */
 
         if (control) {
 
-            control.addEventListener(
-                "click",
-                async (event) => {
+            control.addEventListener("click", async (event) => {
 
-                    event.stopPropagation();
+                event.stopPropagation();
 
-                    try {
+                try {
 
-                        const paused =
-                            await player.getPaused();
-
-                        if (paused) {
-
-                            await player.play();
-
-                        } else {
-
-                            await player.pause();
-
-                        }
-
-                    } catch (error) {
-
-                        console.error(
-                            "Vimeo playback error:",
-                            error
-                        );
-
+                    if (await player.getPaused()) {
+                        await player.play();
+                    } else {
+                        await player.pause();
                     }
 
+                } catch (error) {
+                    console.error("Vimeo playback error:", error);
                 }
-            );
+
+            });
 
         }
 
-
-        /* ====================================================
-           PLAY EVENT
-           ==================================================== */
+        /* ----------------------------------------------------
+           PLAY STATE
+           ---------------------------------------------------- */
 
         player.on("play", () => {
 
-            insetVideo.classList.add(
-                "is-playing"
-            );
+            videoContainer.classList.add("is-playing");
 
             if (control) {
 
-                control.setAttribute(
-                    "aria-label",
-                    "Pause video"
-                );
+                control.setAttribute("aria-label", "Pause video");
+                control.setAttribute("aria-pressed", "true");
 
-                control.setAttribute(
-                    "aria-pressed",
-                    "true"
-                );
+                const label = control.querySelector("span:last-child");
+
+                if (label) label.textContent = "Pause";
 
             }
 
         });
-
-
-        /* ====================================================
-           PAUSE EVENT
-           ==================================================== */
 
         player.on("pause", () => {
 
-            insetVideo.classList.remove(
-                "is-playing"
-            );
+            videoContainer.classList.remove("is-playing");
 
             if (control) {
 
-                control.setAttribute(
-                    "aria-label",
-                    "Play video"
-                );
+                control.setAttribute("aria-label", "Play video");
+                control.setAttribute("aria-pressed", "false");
 
-                control.setAttribute(
-                    "aria-pressed",
-                    "false"
-                );
+                const label = control.querySelector("span:last-child");
+
+                if (label) label.textContent = "Play";
 
             }
 
         });
 
-
-        /* ====================================================
-           ENDED EVENT
-           ==================================================== */
-
         player.on("ended", () => {
 
-            insetVideo.classList.remove(
-                "is-playing"
-            );
+            videoContainer.classList.remove("is-playing");
 
             if (control) {
 
-                control.setAttribute(
-                    "aria-label",
-                    "Replay video"
-                );
+                control.setAttribute("aria-label", "Replay video");
+                control.setAttribute("aria-pressed", "false");
 
-                control.setAttribute(
-                    "aria-pressed",
-                    "false"
-                );
+                const label = control.querySelector("span:last-child");
+
+                if (label) label.textContent = "Replay";
 
             }
 
             if (progressFill) {
+                progressFill.style.width = "100%";
+            }
 
-                progressFill.style.width =
-                    "100%";
-
+            if (progress) {
+                progress.setAttribute("aria-valuenow", "100");
             }
 
         });
 
+        /* ----------------------------------------------------
+           AUDIO
+           ---------------------------------------------------- */
 
-        /* ====================================================
-           AUDIO CONTROL
-           ==================================================== */
+        async function updateAudioState() {
 
-        if (audioControl) {
+            if (!audioControl) return;
 
-            audioControl.addEventListener(
-                "click",
-                async (event) => {
+            try {
 
-                    event.stopPropagation();
+                const muted = await player.getMuted();
 
-                    try {
+                audioControl.classList.toggle("is-unmuted", !muted);
 
-                        const muted =
-                            await player.getMuted();
+                audioControl.setAttribute(
+                    "aria-label",
+                    muted ? "Turn sound on" : "Mute video"
+                );
 
-                        await player.setMuted(
-                            !muted
-                        );
+                audioControl.setAttribute(
+                    "aria-pressed",
+                    muted ? "false" : "true"
+                );
 
-                        audioControl.classList.toggle(
-                            "is-unmuted",
-                            muted
-                        );
-
-                        audioControl.setAttribute(
-                            "aria-label",
-                            muted
-                                ? "Mute video"
-                                : "Turn sound on"
-                        );
-
-                        audioControl.setAttribute(
-                            "aria-pressed",
-                            muted
-                                ? "true"
-                                : "false"
-                        );
-
-                    } catch (error) {
-
-                        console.error(
-                            "Vimeo audio error:",
-                            error
-                        );
-
-                    }
-
-                }
-            );
+            } catch (error) {
+                console.error("Vimeo audio state error:", error);
+            }
 
         }
 
+        if (audioControl) {
 
-        /* ====================================================
-           TIME UPDATE
-           ==================================================== */
+            audioControl.addEventListener("click", async (event) => {
 
-        player.on(
-            "timeupdate",
-            (data) => {
+                event.stopPropagation();
 
-                if (
-                    !progressFill ||
-                    !data.duration
-                ) {
-                    return;
+                try {
+
+                    const muted = await player.getMuted();
+
+                    await player.setMuted(!muted);
+
+                    await updateAudioState();
+
+                } catch (error) {
+                    console.error("Vimeo audio error:", error);
                 }
 
-                const percentage =
-                    (
-                        data.seconds /
-                        data.duration
-                    ) * 100;
+            });
 
-                progressFill.style.width =
-                    `${percentage}%`;
+        }
 
-                if (progress) {
+        player.on("volumechange", updateAudioState);
 
-                    progress.style.setProperty(
-                        "--progress",
-                        percentage
-                    );
+        updateAudioState();
 
-                    progress.setAttribute(
-                        "aria-valuenow",
-                        Math.round(percentage)
-                    );
+        /* ----------------------------------------------------
+           PROGRESS UPDATE
+           ---------------------------------------------------- */
 
-                }
+        player.on("timeupdate", (data) => {
 
-            }
-        );
+            if (!progressFill || !data.duration) return;
 
+            const percentage = (data.seconds / data.duration) * 100;
 
-        /* ====================================================
-           PROGRESS / SEEK
-           ==================================================== */
+            progressFill.style.width = `${percentage}%`;
 
-        if (
-            progress &&
-            progressFill
-        ) {
+            if (progress) {
 
-            let dragging = false;
-
-
-            /* ------------------------------------------------
-               SEEK FUNCTION
-               ------------------------------------------------ */
-
-            const seek = async (event) => {
-
-                const rect =
-                    progress.getBoundingClientRect();
-
-                const position =
-                    (
-                        event.clientX -
-                        rect.left
-                    ) / rect.width;
-
-                const clamped =
-                    Math.max(
-                        0,
-                        Math.min(1, position)
-                    );
-
-                const duration =
-                    await player.getDuration();
-
-                if (!duration) {
-                    return;
-                }
-
-                await player.setCurrentTime(
-                    duration * clamped
-                );
-
-                const percentage =
-                    clamped * 100;
-
-                progressFill.style.width =
-                    `${percentage}%`;
-
-                progress.style.setProperty(
-                    "--progress",
-                    percentage
-                );
+                progress.style.setProperty("--progress", percentage);
 
                 progress.setAttribute(
                     "aria-valuenow",
                     Math.round(percentage)
                 );
 
-            };
+            }
 
+        });
 
-            /* ------------------------------------------------
-               CLICK TO SEEK
-               ------------------------------------------------ */
+        /* ----------------------------------------------------
+           SEEK
+           Click, drag, or use the keyboard on the progress bar.
+           ---------------------------------------------------- */
 
-            progress.addEventListener(
-                "click",
-                async (event) => {
+        if (progress && progressFill) {
 
-                    event.stopPropagation();
+            let dragging = false;
 
-                    try {
+            async function seekToPosition(clientX) {
 
-                        await seek(event);
+                const rect = progress.getBoundingClientRect();
 
-                    } catch (error) {
+                if (!rect.width) return;
 
-                        console.error(
-                            "Vimeo seek error:",
-                            error
-                        );
-
-                    }
-
-                }
-            );
-
-
-            /* ------------------------------------------------
-               POINTER DOWN
-               ------------------------------------------------ */
-
-            progress.addEventListener(
-                "pointerdown",
-                async (event) => {
-
-                    event.stopPropagation();
-
-                    dragging = true;
-
-                    progress.setPointerCapture(
-                        event.pointerId
-                    );
-
-                    try {
-
-                        await seek(event);
-
-                    } catch (error) {
-
-                        console.error(
-                            "Vimeo seek error:",
-                            error
-                        );
-
-                    }
-
-                }
-            );
-
-
-            /* ------------------------------------------------
-               POINTER MOVE
-               ------------------------------------------------ */
-
-            progress.addEventListener(
-                "pointermove",
-                async (event) => {
-
-                    if (!dragging) {
-                        return;
-                    }
-
-                    try {
-
-                        await seek(event);
-
-                    } catch (error) {
-
-                        console.error(
-                            "Vimeo seek error:",
-                            error
-                        );
-
-                    }
-
-                }
-            );
-
-
-            /* ------------------------------------------------
-               POINTER UP
-               ------------------------------------------------ */
-
-            progress.addEventListener(
-                "pointerup",
-                () => {
-
-                    dragging = false;
-
-                }
-            );
-
-
-            /* ------------------------------------------------
-               POINTER CANCEL
-               ------------------------------------------------ */
-
-            progress.addEventListener(
-                "pointercancel",
-                () => {
-
-                    dragging = false;
-
-                }
-            );
-
-        }
-
-
-        /* ====================================================
-           INITIAL AUDIO STATE
-           ==================================================== */
-
-        player
-            .getMuted()
-            .then((muted) => {
-
-                if (!audioControl) {
-                    return;
-                }
-
-                audioControl.classList.toggle(
-                    "is-unmuted",
-                    !muted
+                const position = Math.max(
+                    0,
+                    Math.min(1, (clientX - rect.left) / rect.width)
                 );
 
-                audioControl.setAttribute(
-                    "aria-label",
-                    muted
-                        ? "Turn sound on"
-                        : "Mute video"
+                const duration = await player.getDuration();
+
+                if (!duration) return;
+
+                await player.setCurrentTime(duration * position);
+
+                const percentage = position * 100;
+
+                progressFill.style.width = `${percentage}%`;
+
+                progress.style.setProperty("--progress", percentage);
+
+                progress.setAttribute(
+                    "aria-valuenow",
+                    Math.round(percentage)
                 );
 
-                audioControl.setAttribute(
-                    "aria-pressed",
-                    muted
-                        ? "false"
-                        : "true"
-                );
+            }
 
-            })
-            .catch((error) => {
+            progress.addEventListener("click", async (event) => {
 
-                console.error(
-                    "Vimeo audio state error:",
-                    error
-                );
+                event.stopPropagation();
+
+                try {
+                    await seekToPosition(event.clientX);
+                } catch (error) {
+                    console.error("Vimeo seek error:", error);
+                }
 
             });
 
-    }
+            progress.addEventListener("pointerdown", async (event) => {
+
+                event.stopPropagation();
+
+                dragging = true;
+
+                progress.setPointerCapture(event.pointerId);
+
+                try {
+                    await seekToPosition(event.clientX);
+                } catch (error) {
+                    console.error("Vimeo seek error:", error);
+                }
+
+            });
+
+            progress.addEventListener("pointermove", async (event) => {
+
+                if (!dragging) return;
+
+                try {
+                    await seekToPosition(event.clientX);
+                } catch (error) {
+                    console.error("Vimeo seek error:", error);
+                }
+
+            });
+
+            function stopDragging() {
+                dragging = false;
+            }
+
+            progress.addEventListener("pointerup", stopDragging);
+            progress.addEventListener("pointercancel", stopDragging);
+            progress.addEventListener("lostpointercapture", stopDragging);
+
+            progress.addEventListener("keydown", async (event) => {
+
+                let amount = 0;
+
+                if (event.key === "ArrowRight") amount = 5;
+                if (event.key === "ArrowLeft") amount = -5;
+
+                if (event.key === "Home") amount = -Infinity;
+                if (event.key === "End") amount = Infinity;
+
+                if (amount === 0) return;
+
+                event.preventDefault();
+
+                try {
+
+                    const currentTime = await player.getCurrentTime();
+                    const duration = await player.getDuration();
+
+                    if (!duration) return;
+
+                    let targetTime;
+
+                    if (amount === -Infinity) {
+                        targetTime = 0;
+                    } else if (amount === Infinity) {
+                        targetTime = duration;
+                    } else {
+                        targetTime = Math.max(
+                            0,
+                            Math.min(duration, currentTime + amount)
+                        );
+                    }
+
+                    await player.setCurrentTime(targetTime);
+
+                } catch (error) {
+                    console.error("Vimeo keyboard seek error:", error);
+                }
+
+            });
+
+        }
+
+    });
 
 }
+
 
 
 /* ============================================================

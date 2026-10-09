@@ -2053,3 +2053,104 @@ figure {
         transition-duration: .01ms !important;
     }
 }
+
+/* ============================================================
+VERTICAL VIMEO VIDEO
+============================================================ */
+
+.vertical-video-section {
+width: 100%;
+padding: 8rem 5vw;
+background: #f1efe8;
+}
+
+.vertical-video-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 2rem;
+
+
+font-family: "DM Mono", monospace;
+font-size: 0.7rem;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+
+
+}
+
+.vertical-video-frame {
+position: relative;
+width: 100%;
+max-width: 420px;
+aspect-ratio: 9 / 16;
+margin: 0 auto;
+overflow: hidden;
+background: #171714;
+}
+
+.vertical-video-frame iframe {
+position: absolute;
+inset: 0;
+width: 100%;
+height: 100%;
+border: 0;
+}
+
+@media (max-width: 600px) {
+.vertical-video-section {
+padding: 5rem 5vw;
+}
+
+
+.vertical-video-frame {
+    max-width: 100%;
+}
+
+
+}
+
+
+/* ============================================================
+   VERTICAL VIDEO CONTROLS
+   MATCH INSET VIDEO CONTROLS
+   ============================================================ */
+
+.vertical-video-frame iframe {
+    pointer-events: none;
+}
+
+.vertical-video-frame .inset-video-controls {
+    opacity: 0;
+}
+
+.vertical-video-section:hover .inset-video-controls,
+.vertical-video-section:not(.is-playing) .inset-video-controls {
+    opacity: 1;
+}
+
+/* Keep controls accessible on touch screens */
+
+@media (hover: none) {
+    .vertical-video-frame .inset-video-controls {
+        opacity: 1;
+    }
+}
+
+/* Match control spacing to the narrow vertical frame */
+
+.vertical-video-frame .inset-video-controls {
+    height: 64px;
+    padding: 0 16px;
+    gap: 16px;
+}
+
+.vertical-video-frame .inset-video-control,
+.vertical-video-frame .inset-video-audio {
+    font-size: 8px;
+}
+
+.vertical-video-frame .inset-video-progress {
+    min-width: 30px;
+}
+
